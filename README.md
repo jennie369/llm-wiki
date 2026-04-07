@@ -197,6 +197,12 @@ llm-wiki/
 
 ---
 
+## Câu hỏi thường gặp
+
+Xem [FAQ.md](FAQ.md) — bao gồm: wiki phình to truy vấn thế nào, versioning schema, dùng cho tài liệu nội bộ (Confluence), chi phí token, dùng cho team, dùng model khác, hallucination.
+
+---
+
 ## Tác giả & Nguồn cảm hứng
 
 - Pattern gốc: [Andrej Karpathy — LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
