@@ -88,7 +88,21 @@ codex "Đọc AGENTS.md và chạy full cycle: discover → ingest → lint"
 | Codex CLI | `codex "..."` | `AGENTS.md` | Không cần — đọc AGENTS.md ở root |
 | Cursor | Chat trong IDE | `AGENTS.md` hoặc `.cursorrules` | Không cần — đọc AGENTS.md ở root |
 
-> **Lưu ý:** Chỉ Claude Code và Antigravity có slash command (`/llm-wiki`). Các tool khác bạn chat bằng ngôn ngữ tự nhiên — LLM sẽ đọc file config và thực hiện theo quy tắc trong đó.
+> **Lưu ý:**
+> - Chỉ Claude Code và Antigravity có slash command (`/llm-wiki`). Các tool khác bạn chat bằng ngôn ngữ tự nhiên.
+> - `/loop` chỉ có ở Claude Code. Các tool khác muốn chạy tự động thì dùng Task Scheduler (Windows) hoặc crontab (macOS/Linux).
+
+### Chạy tự động theo tool
+
+| Tool | Cách chạy tự động |
+|------|-------------------|
+| Claude Code | `/loop 1h /llm-wiki run` (trong session) |
+| Antigravity | Task Scheduler / crontab |
+| Codex CLI | crontab gọi `codex "Đọc AGENTS.md và chạy discover → ingest → lint"` |
+| GitHub Copilot | Không hỗ trợ — chỉ chat trong IDE |
+| Cursor | Không hỗ trợ — chỉ chat trong IDE |
+
+Xem thêm phần [Chạy tự động](#chạy-tự-động) bên dưới để cấu hình Task Scheduler / crontab.
 
 ### 4. Xem wiki
 
