@@ -1,3 +1,18 @@
+# Daily Progress — 2026-04-14
+
+## LLM Wiki — Tinh Tuyển Ingest (TS Liên Anh batch)
+
+### Session: Ingest tt-ts-lien-anh-* sources (~14:00~)
+
+- Viết 13 wiki/sources/tt-ts-lien-anh-*.md từ raw/OBSIDIAN/Clippings/Tinh Tuyển/
+- Files done this session: ve-phap-kim-cang-tat-doa, khai-thi-sau-ho-ma-lien-hoa-dong-tu, bao-on-chung-sinh, ve-thinh-phu, ve-hoi-huong-va-bao-on, khai-thi-sau-ho-ma-bat-dong-minh-vuong, long-chung-thuong-ton-vuong-phat, phap-long-vuong-bao-binh (và 4 files từ session trước: giang-cao-vuong-kinh, y-nghia-thinh-phat-tru-the, khai-thi-hoi-cung-dai-luc-kim-cang, chia-se-tai-phap-hoa-duong)
+- **Tổng TS Liên Anh đã xử lý: 12/35 files** (wiki/sources/tt-ts-lien-anh-*.md)
+- **Còn lại: 23 files** chưa xử lý
+- **Next:** Tiếp tục ingest 23 files còn lại (xem danh sách trong PROJECT_CONTEXT.md)
+- Recorded: yes — large file workaround with Bash/Python
+
+---
+
 # Daily Progress — 2026-04-09
 
 ## LLM Wiki — Tâm Linh Phong Thủy

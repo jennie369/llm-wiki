@@ -1,0 +1,12 @@
+[
+  {
+    "id": "tt-ingest-ts-lien-anh",
+    "title": "Ingest toàn bộ TS Liên Anh Tinh Tuyển",
+    "status": "active",
+    "priority": "high",
+    "created": "2026-04-14",
+    "updated": "2026-04-14",
+    "context": "Ingest raw/OBSIDIAN/Clippings/Tinh Tuyển/TS Liên Anh*.md → wiki/sources/tt-ts-lien-anh-*.md. Đã xong 12/35 files. Directive: tiếp đến hết, không hỏi lại.",
+    "next_action": "Tiếp tục đọc và viết 23 files còn lại. Danh sách đầy đủ trong PROJECT_CONTEXT.md. Sau khi xong → update INDEX.md và LOG.md."
+  }
+]
