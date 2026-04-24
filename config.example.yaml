@@ -143,3 +143,38 @@ outputs:
     - markdown
   save_queries: true
   save_syntheses: true
+
+# ============================================================
+# Mắt Thần Integration (optional)
+# For wikis that feed an App Phong Thủy Đế Vương Knowledge Graph.
+# Remove this section if not using Mắt Thần.
+# ============================================================
+# mat_than:
+#   enabled: false
+#   wiki_path: wiki/entities/
+#   sacred_db_archive_path: ../your-app/sacred-entities-db/data/entities/
+#   seed_url: http://localhost:3000/api/ops/kg/seed
+#   seed_mode: wiki                  # wiki | sacred_db
+#   auto_sync_on_ingest: false
+#
+#   # Sync filter: entity phải có category thuộc danh sách tâm linh
+#   # Sync: phat | bo_tat | chu_thien | than_linh | nhan | khac
+#   # Skip: person | organization | tool | project
+#   # NOTE: "nhan" = người TRONG hệ thống gia phả/tâm linh ≠ "person" = nguồn tham khảo bên ngoài
+#
+#   sync_fields:
+#     - id
+#     - entity_type
+#     - category
+#     - name
+#     - name_han
+#     - element
+#     - power_level
+#     - traditions
+#     - aliases
+#     - cong_nang
+#     - ngay_via
+#     - hinh_tuong
+#     - search_text_boost
+#     - status
+#     - confidence

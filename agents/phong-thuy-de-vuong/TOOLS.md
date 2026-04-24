@@ -49,14 +49,14 @@ Phân tích lá số dựa trên Nguyệt Vận V6.0 Framework.
 
 ## 2. Ritual Protocol Engine
 
-8 nghi lễ chính:
+8 nghi lễ / quy trình chính:
 1. **Hỏa Cúng Homa** -- 4 mục đích (trừ tai, hàng phục, kính ái, tăng ích)
 2. **Trần Triều Giải Kết** -- giải kết nghiệp Trần Triều
 3. **Giải Phóng Trấn Nhân** -- giải trấn yểm, thần chú đảo ngược
 4. **Sám Hối Tổ Tiên** -- hàng năm Mùng 1/11 ÂL
 5. **Triệu Hồi Phúc Đức** -- kích hoạt 5 vị tổ tiên (23h-01h, hướng Bắc)
 6. **Nuôi Lộc Tồn** -- cúng dưỡng 2 & 16 ÂL hàng tháng
-7. **Kích Hoạt Cửu Ngũ Chí Tôn** -- trầm hương chiến đấu
+7. **Thiền phái Trúc Lâm Yên tử** -- tư tưởng, triết lý, ứng dụng
 8. **Kết Nối Long Mạch Yên Tử** -- tái kết nối tổ tiên
 
 ## 3. Enemy Intelligence System
@@ -74,17 +74,23 @@ Phân tích lá số dựa trên Nguyệt Vận V6.0 Framework.
 - **Tầng 2:** Chư Thiên / Bồ Tát (Jesus, Bàn Cổ, Nữ Oa, Quan Âm, v.v.)
 - **Tầng 3:** Hộ Pháp / Tài Thần (Quan Thánh, Tứ Đại Hộ Thủ, Hoàng Tài Thần, v.v.)
 
-## 5. Bazi MCP — Tính Ngày Giờ Âm Dương Chuẩn
+**⚠️ YÊU CẦU BẮT BUỘC KHI TÌM HIỂU THẦN PHẬT / HỘ PHÁP / CƠ SỞ DỮ LIỆU / KINH LUẬT:**
+Không chỉ gói gọn trong file tử vi. Phải truy xuất thông tin từ TẤT CẢ folder trong `raw/Clippings` (Nghi quỹ tu tập, Sách tâm linh, Chân ngôn thần chú, Tinh tuyển, Kinh luật luận), folder `raw/tam-linh-phong-thuy` và `TỬ VI NTP/docs-tam-linh`.
 
-**LUÔN dùng MCP này, KHÔNG tự tính âm dương lịch.**
+## 5. Bazi & Tuvi MCP Wrapper — Engine Tính Toán Cốt Lõi
+
+**LUÔN dùng MCP này, KHÔNG tự tính âm dương lịch hay nguyệt vận bằng nhẩm đoán.**
 
 | Tool | Dùng khi |
 |------|---------|
-| `bazi__getBaziDetail` | Tính bát tự từ ngày giờ sinh (dương hoặc âm lịch) |
-| `bazi__getChineseCalendar` | Xem hoàng lịch, ngày tốt/xấu, giờ tốt |
+| `bazi__getBaziDetail` | Tính bát tự từ ngày giờ sinh (Thập thần, Thần Sát) |
+| `bazi__getChineseCalendar` | Xem hoàng lịch, ngày tốt/xấu, việc kiêng kỵ |
 | `bazi__getSolarTimes` | Từ bát tự tìm ngày dương lịch tương ứng |
+| `tuvi__getChart` | Khởi lá số tử vi 12 cung, Tuần Không, Triệt Lộ, Mệnh/Thân Chủ |
+| `tuvi__getHoroscope` | Xuất Vận Hạn (Đại vận, Lưu niên, Tiểu Hạn, Nguyệt Vận) theo Target Date |
+| `charts__list` | Phân xuất danh sách khách hàng đang có lá số trên DB |
 
-Full guide: `tools/bazi-mcp.md`
+Full guide: `tools/bazi-mcp.md` và `tools/tu-vi-engine.md`
 
 ---
 
@@ -130,9 +136,10 @@ C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương/
 
 ### Khi nào dùng
 
-| Scenario | File / Path đọc | Mục đích |
-|----------|-----------------|----------|
-| Jennie hỏi logic tính bát tự trong web | `web-dashboard/app/api/bazi/route.js` | Hiểu thuật toán, không đoán |
+| Scenario | File / Tool | Mục đích |
+|----------|-------------|----------|
+| Lập lá bát tự hoặc tử vi | Gọi tool `bazi__getBaziDetail` hoặc `tuvi__*` | Dùng MCP làm Single Source of Truth, không đọc code web để tự tính |
+| Tra cứu ý nghĩa chuyên sâu 114 Sao Tử Vi | `raw/Clippings/Tu-vi-dictionary/TuVi-114-Stars-Dictionary.json` | Đọc dữ liệu kiến giải 3D/5D/6D đặc thù của hệ phái |
 | Debug UI dashboard | `web-dashboard/app/` + `components/` | Trace component tree |
 | Schema DB, migrations | `supabase/migrations/` | Check trước khi suggest query |
 | Kiểm tra data cây phả hệ | `gia-pha/` | Tra cứu tổ tiên |

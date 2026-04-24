@@ -1,0 +1,45 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "python",
+      "args": [
+        "C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/scripts/supabase-mcp-server.py"
+      ]
+    },
+    "bazi": {
+      "command": "node",
+      "args": [
+        "C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương/web-dashboard/scripts/bazi_wrapper.mjs"
+      ]
+    },
+    "deep-research": {
+      "command": "node",
+      "args": [
+        "C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/scripts/deep_research_mcp.mjs"
+      ],
+      "env": {
+        "TAVILY_API_KEY": "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"
+      }
+    },
+    "sequential-thinking": {
+      "command": "C:/Users/Jennie Chu/AppData/Roaming/npm/mcp-server-sequential-thinking.cmd",
+      "args": []
+    }
+  },
+  "includeDirectories": [
+    "C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory",
+    "C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/skills-store",
+    "C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents",
+    "C:/Users/Jennie Chu/.claude/rules",
+    "C:/Users/Jennie Chu/.claude/skills",
+    "C:/Users/Jennie Chu/.claude/hooks",
+    "C:/Users/Jennie Chu/.claude/memory",
+    "C:/Users/Jennie Chu/.gemini",
+    "D:/Claude Projects/App Content Jennie/gem-content-center/knowledge",
+    "D:/Claude Projects/App Content Jennie/gem-content-center",
+    "C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương",
+    "C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương/web-dashboard",
+    "C:/Users/Jennie Chu/Desktop/Projects/llm-wiki",
+    "C:/Users/Jennie Chu/Desktop/Projects/paperclip"
+  ]
+}

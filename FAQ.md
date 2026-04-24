@@ -155,6 +155,60 @@ Karpathy nói: "This is an idea file, designed to be copy pasted to your own LLM
 
 ---
 
+## 8. Wiki này liên kết với App Phong Thủy Đế Vương (Mắt Thần) như thế nào?
+
+Wiki là **SSOT (Single Source of Truth)** cho toàn bộ dữ liệu tâm linh của App Phong Thủy Đế Vương. Workflow:
+
+```
+Cập nhật entity trong wiki/entities/
+    ↓
+/llm-wiki mat_than_sync
+    ↓
+HTTP POST → /api/ops/kg/seed (App Phong Thủy, localhost:3000)
+    ↓
+Supabase kg_nodes upserted
+    ↓
+Mắt Thần UI tự cập nhật
+```
+
+**Tại sao wiki thay thế sacred-entities-db?**
+
+Trước đây có 2 folder riêng:
+- `llm-wiki/wiki/entities/` — wiki content (rich text, cross-links)
+- `App Phong Thủy/sacred-entities-db/data/entities/` — structured data (YAML frontmatter cho DB)
+
+Vấn đề: Cập nhật một chỗ không tự sync chỗ kia → dữ liệu phân mảnh.
+
+Giải pháp: Merge vào wiki — frontmatter entity Template A chứa đủ cả structured fields (element, power_level, hinh_tuong...) lẫn rich content (## Tóm tắt, ## Công năng...).
+
+**Entity nào được sync?**
+
+`mat_than_sync` chỉ sync entity khi `category` thuộc danh sách tâm linh:
+
+| Category | Có sync? | Ví dụ |
+|---|---|---|
+| `phat`, `bo_tat`, `chu_thien`, `than_linh` | ✅ | Quán Thế Âm, A Di Đà |
+| `nhan` (người trong hệ thống gia phả/tâm linh) | ✅ | Hưng Vương, Trần Nhân Tông, cụ kỵ gia phả bình thường |
+| `khac` | ✅ | Thực thể tâm linh khác |
+| `person` (người thường) | ❌ | Andrej Karpathy, researcher |
+| `organization`, `tool`, `project` | ❌ | GitHub, Claude Code |
+
+> **`nhan` vs `person`** — điểm hay nhầm nhất:
+> - `nhan` = **bất kỳ người nào được track trong wiki này** — Phật Hoàng, Hưng Đạo Vương, VÀ cả cụ kỵ bình thường trong gia phả dòng họ. **Không cần nổi tiếng, không cần có miếu thờ.**
+> - `person` = người **ngoài hệ thống**, chỉ xuất hiện như tác giả/nguồn tham khảo (Andrej Karpathy, nhà nghiên cứu).
+> - **Rule 1 dòng**: Là người TRONG hệ thống gia phả/tâm linh → `nhan`. Chỉ là NGUỒN BÊN NGOÀI → `person`.
+
+**Khi nào cần chạy mat_than_sync?**
+- Sau mỗi batch ingest mới
+- Khi sửa/cập nhật entity đã published
+- Hoặc set `auto_sync_on_ingest: true` trong config.yaml để tự động
+
+**sacred-entities-db còn dùng không?**
+
+Folder `sacred-entities-db/data/entities/` vẫn giữ nguyên làm **archive** — không bị xóa. Nhưng mọi cập nhật mới phải làm trong wiki. Seed API đã hỗ trợ cả hai: `seed_mode: wiki` (mặc định mới) hoặc `seed_mode: sacred_db` (legacy).
+
+---
+
 ## 7. Wiki có bị hallucinate (bịa thông tin) không?
 
 Rủi ro có, nhưng được giảm thiểu bằng:
