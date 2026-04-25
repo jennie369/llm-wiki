@@ -27,7 +27,7 @@
         "C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương/web-dashboard/scripts/bazi_wrapper.mjs"
       ]
     },
-    "fetch": {
+    "web-fetch": {
       "command": "python",
       "args": [
         "C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/scripts/fetch-mcp-server.py"
