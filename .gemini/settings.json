@@ -30,8 +30,7 @@
     "fetch": {
       "command": "python",
       "args": [
-        "-m",
-        "mcp_server_fetch"
+        "C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/scripts/fetch-mcp-server.py"
       ]
     }
   },
