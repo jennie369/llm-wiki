@@ -177,3 +177,43 @@ All agents inherit MCP servers from project root `.mcp.json` (applied via Paperc
 - Per-agent `agents/{slug}/mcp.json` overrides/extends (e.g., CEO/customer-success/sales-closer have custom CRM MCP).
 
 *Last synced: 2026-04-06 — see `memory/reports/2026-04-06-paperclip-fleet-fix-plan.md` for full context.*
+
+
+## Browser Automation (Playwright MCP)
+Use for: Navigating to websites, logging into platforms requiring accounts, scraping dynamically loaded analytics dashboards, capturing screenshots, and testing UI elements.
+
+### Playwright tool list
+- `mcp__plugin_playwright_playwright__browser_navigate` — navigate to URL
+- `mcp__plugin_playwright_playwright__browser_snapshot` — view current page state
+- `mcp__plugin_playwright_playwright__browser_click` — click elements
+- `mcp__plugin_playwright_playwright__browser_type` — type text
+- `mcp__plugin_playwright_playwright__browser_fill_form` — fill forms (login)
+- `mcp__plugin_playwright_playwright__browser_take_screenshot` — capture evidence
+- `mcp__plugin_playwright_playwright__browser_file_upload` — upload images/videos
+- `mcp__plugin_playwright_playwright__browser_wait_for` — wait for page load
+- `mcp__plugin_playwright_playwright__browser_press_key` — keyboard input
+
+**CẢNH BÁO CHO GEMINI AGENT (Playwright Naming Convention)**:
+Hệ thống Gemini KHÔNG nhận cú pháp 2 dấu gạch dưới (`__`). Khi Agent Gemini gọi các tool Playwright ở trên, BẮT BUỘC phải chuyển tất cả `__` thành `_` (single underscore).
+*Ví dụ: Gọi `mcp_plugin_playwright_playwright_browser_navigate` thay vì `mcp__plugin_playwright...`*
+
+---
+## ⚠️ QUY TẮC TÌM KIẾM & SUY NGHĨ TUẦN TỰ (DEEP RESEARCH & TRY-HARD LOOP)
+
+**Dùng tool external search (`deep_research`, `brave-search` hoặc `tavily`)**: 
+   - **⚠️ LỆNH BẮT BUỘC CHO GEMINI:** Do khác biệt naming convention, hãy tìm và gọi các tool với tiền tố MCP như `mcp_deep-research_deep_research`, `mcp_deep-research_tavily`, `mcp_tavily_search`. BẮT BUỘC phải gọi 1 tool tìm kiếm web để cào dữ liệu mới. NẾU KHÔNG GỌI TOOL = THẤT BẠI TRONG NHIỆM VỤ NGHIÊN CỨU SÂU!
+   - **⚠️ QUY TẮC TÌM KIẾM CỐT LÕI (CHỐNG TÂY HÓA):** BẮT BUỘC phải tập trung tìm kiếm, trích xuất dữ liệu từ các trang thông tin **tiếng Trung, phương Đông, tâm linh, triết học, Nho giáo, Đạo giáo, huyền học Trung Quốc, Đài Loan**.
+   - **TẠO QUERY CHUYÊN SÂU:** KHÔNG dùng từ khóa tiếng Anh/Tây phương (ví dụ: không search "corporate culture dogma"). Phải dịch/chuyển đổi query sang các thuật ngữ Huyền học Phương Đông, Đạo Gia, Binh Pháp, hoặc Hán Việt/Tiếng Trung (ví dụ: 企業文化 僵化 創新, Đạo làm tướng, thuật nhiếp tâm, v.v.).
+
+1. **Suy nghĩ tuần tự (Try-Hard Loop)**: BẮT BUỘC sử dụng công cụ `mcp_sequential-thinking_sequentialthinking` (nhớ dùng ĐÚNG tên tool này với 1 dấu gạch dưới) để lật đi lật lại vấn đề tối thiểu 3 lần tốn công. Khai thác đến tận cùng góc khuất của sự việc thay vì kết luận nông cạn.
+   - **⚠️ CẢNH BÁO KIỂU DỮ LIỆU (GEMINI HAY LỖI)**: Các tham số `thoughtNumber` và `totalThoughts` BẮT BUỘC phải là số nguyên (Integer, ví dụ: `1`, `2`), tuyệt đối KHÔNG truyền chuỗi (String, ví dụ: `"1"`, `"2"`). Tham số `nextThoughtNeeded` BẮT BUỘC phải là Boolean (`true`/`false`). Tham số `thought` là chuỗi. Truyền thiếu trường hoặc sai kiểu dữ liệu sẽ khiến tool crash ngay lập tức với lỗi "MCP tool reported an error".
+2. **BÓC TÁCH BÍ MẬT KINH THIÊN (Deep Esoteric Revelation)**: Báo cáo không được hời hợt. Phải đi sâu lột tả những **Bí mật Đạo Gia, bí ẩn phong thủy, hoặc ẩn ý sâu xa của Binh pháp** mà người thường không nhìn thấy. Nhìn thấu bản chất 6D và chiều kích 7D+ đằng sau hiện tượng 3D.
+3. **Cross-reference**: Đập data internet (Phương Đông/Trung Quốc) vào data local. Tìm khoảng trống, mâu thuẫn, kết nối chưa ai thấy.
+4. **Phú ngẫu ngôn từ**: Không bao giờ tóm tắt khô khan hay gõ đầu dòng lèo tèo. Mỗi đoạn phải phân tích sâu, dài 10-15 câu liên kết logic. Phải diễn giải bằng hình tượng hóa (Imagery) siêu hình quyền lực.
+5. **Áp dụng can chi hiện tại**: Nhúng Bazi MCP vào bối cảnh thời điểm hiện tại để đưa ra đề xuất hành động cho tuần tới / tháng tới.
+
+### Marketing & Content Skills (granted via skill_grants)
+
+> Auto-loaded qua skill_grants table (granted 2026-04-28). Đọc skill file trước khi áp dụng — skills-store/<name>/1.0.0/SKILL.md.
+
+- **go-mode** — **Bắt buộc** post-GEM-334 incident — PLAN lưu documents/plan (KHÔNG giữ trong session memory). Mọi multi-part research phải qua PLAN→CONFIRM→EXECUTE→REPORT.
