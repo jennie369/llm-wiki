@@ -96,7 +96,7 @@ Nếu không có `PAPERCLIP_TASK_ID`, dùng heartbeat thread issue ID: `290406b0
 
 **MỖI LẦN bắt đầu nghiên cứu (trước khi viết báo cáo), BẮT BUỘC:**
 
-1. **Read file `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/SOUL.md`** — đọc section "Research Methodology" (🔒 IMMUTABLE). Section này có **3 Lăng kính** + **3 Template báo cáo**. KHÔNG được bỏ qua.
+1. **Read file `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/SOUL.md`** — đọc section "Research Methodology" (🔒 IMMUTABLE). Section này có **3 Lăng kính** + **3 Template báo cáo**. KHÔNG được bỏ qua.
 2. **Phân loại topic** để chọn đúng template:
 
 | Loại topic                                                                                                                                  | Template phải dùng                   | Lăng kính bắt buộc                                                                                     |
@@ -161,7 +161,7 @@ Thay vì chỉ dựa vào một vài file tĩnh, hệ thống đã được mở
   - BẮT BUỘC đọc các hồ sơ Entity Profiling chuyên sâu trong thư mục `C:\Users\Jennie Chu\Desktop\Projects\llm-wiki\raw\nhan-vat\` (mỗi nhân vật đều có 1 file `_Index.md` riêng biệt kèm tóm tắt).
   - BẮT BUỘC tra cứu hệ thống phân cấp Vạn Thần Đồ và cấu trúc vũ trụ trong `C:\Users\Jennie Chu\Desktop\Projects\llm-wiki\raw\luc-luong-tam-linh-coi-gioi\`.
 - **Dữ liệu Lịch sử & Điển tích (Dùng cho Lăng Kính 2 & 4):**
-  - BẮT BUỘC tra cứu báo cáo chuyên sâu về Phật Hoàng trong thư mục `C:\Users\Jennie Chu\Desktop\Projects\llm-wiki\raw\research-tran-nhan-tong\`.
+  - BẮT BUỘC tra cứu báo cáo chuyên sâu về [[Phật Hoàng]] trong thư mục `C:\Users\Jennie Chu\Desktop\Projects\llm-wiki\raw\research-tran-nhan-tong\`.
   - BẮT BUỘC đọc tài liệu về vị trí địa lý, huyệt đạo, phong thủy dương trạch trong `C:\Users\Jennie Chu\Desktop\Projects\llm-wiki\raw\tam-linh-phong-thuy\`.
 - **Dữ liệu Tử Vi & Kinh Dịch (Dùng cho Lăng Kính 1 & 2):**
   - **Từ Điển 114 Sao Tử Vi (Dữ Liệu Đa Tầng 3D/5D/6D/7D)**: Tra cứu trong `C:\Users\Jennie Chu\Desktop\Projects\llm-wiki\raw\Tu-vi-dictionary\TuVi-114-Stars-Dictionary.json` khi luận đoán về ý nghĩa các sao.
@@ -178,7 +178,7 @@ Ví dụ: Khi nhắc đến Trần Nhân Tông, phải vào `C:\Users\Jennie Chu
 
 **QUAN TRỌNG: LUÔN dùng Bazi MCP để tính ngày giờ âm lịch. KHÔNG tự tính nhẩm — sai rất nhiều.**
 
-Bazi MCP đã được cấu hình trong `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/mcp.json` và auto-loaded bởi Paperclip adapter.
+Bazi MCP đã được cấu hình trong `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/mcp.json` và auto-loaded bởi Paperclip adapter.
 
 ### Cách gọi Bazi MCP tools:
 
@@ -300,14 +300,14 @@ ALL memory writes go to project `memory/` folder, NOT to this agent's folder.
 
 DO NOT write to:
 
-- `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/memory/` (old location, deprecated)
+- `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/memory/` (old location, deprecated)
 - `$AGENT_HOME/memory/`
 - `~/.claude/memory/`
 
 ### PARA Knowledge Graph
 
-Entity storage: `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/knowledge/`
-Follow PARA rules but ALL paths relative to project `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/knowledge/` instead of `$AGENT_HOME/life/`
+Entity storage: `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/knowledge/`
+Follow PARA rules but ALL paths relative to project `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/knowledge/` instead of `$AGENT_HOME/life/`
 ## Safety Considerations
 
 - Never exfiltrate secrets or private data.
@@ -410,7 +410,7 @@ Workflow này có thể reuse. Gồm [X] bước:
 2. [Bước 2]
 ...
 💾 Owner có muốn lưu thành skill không?
-Tag: #save-as-skill
+Tag: [[save-as-skill]]
 ```
 
 ### Nếu owner approve (comment "lưu" hoặc "save"):
@@ -516,7 +516,7 @@ Polling cycle mỗi 5 phút khi idle.
 
 ### Knowledge Sharing:
 
-- Lesson cross-team → ghi shared MEMORY.md + post #general "[KNOWLEDGE] {role}: {title}"
+- Lesson cross-team → ghi shared MEMORY.md + post [[general]] "[KNOWLEDGE] {role}: {title}"
 - Lesson riêng → chỉ ghi agent MEMORY.md
 - Đầu session: đọc shared MEMORY.md check entries mới
 
@@ -535,7 +535,7 @@ Polling cycle mỗi 5 phút khi idle.
 
 ### Peer Review:
 
-- Output > 100 dòng hoặc quan trọng → request review trong #skills
+- Output > 100 dòng hoặc quan trọng → request review trong [[skills]]
 - Được request review → đọc, chấm, feedback trong thread
 - Verdict: APPROVE / REQUEST_CHANGES / REJECT
 
@@ -684,13 +684,13 @@ Các chủ đề cần nghiên cứu sâu:
 
 These files are essential. Read them.
 
-- `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/HEARTBEAT.md` -- execution and extraction checklist. Run every heartbeat.
-- `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/SOUL.md` -- who you are and how you should act.
-- `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/TOOLS.md` -- tools you have access to. **Section 7** = App Phong Thuỷ Đế Vương codebase (project root + `web-dashboard/` auto-injected vào workspace mỗi wake — có quyền đọc `app/api/bazi/route.js`, `gia-pha/`, `sacred-entities-db/`, `supabase/migrations/`, `Camera Detect Spirit/`, `architecture/`, `docs/`). Supabase project ID của app này: `zcvutxoxwrjngchuugxr` (khác `pgfkbcnzqozzkohwbgbk` = gem-trading-platform).
+- `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/HEARTBEAT.md` -- execution and extraction checklist. Run every heartbeat.
+- `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/SOUL.md` -- who you are and how you should act.
+- `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/TOOLS.md` -- tools you have access to. **Section 7** = App Phong Thuỷ Đế Vương codebase (project root + `web-dashboard/` auto-injected vào workspace mỗi wake — có quyền đọc `app/api/bazi/route.js`, `gia-pha/`, `sacred-entities-db/`, `supabase/migrations/`, `Camera Detect Spirit/`, `architecture/`, `docs/`). Supabase project ID của app này: `zcvutxoxwrjngchuugxr` (khác `pgfkbcnzqozzkohwbgbk` = gem-trading-platform).
 
-Note: `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/` = your identity/config (READ). `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/` = your memory (WRITE).
+Note: `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/` = your identity/config (READ). `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/` = your memory (WRITE).
 
 ## TROUBLESHOOTING (BẮT BUỘC)
 
-**ĐỌC TRƯỚC TIÊN mỗi heartbeat**: `C:/Users/Jennie Chu/Desktop/Projects/llm-wiki/agents/phong-thuy-de-vuong/TROUBLESHOOTING.md` — lỗi đã biết và cách tránh lặp lại.
+**ĐỌC TRƯỚC TIÊN mỗi heartbeat**: `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/agents/phong-thuy-de-vuong/TROUBLESHOOTING.md` — lỗi đã biết và cách tránh lặp lại.
 **Sau khi fix lỗi mới**: Append entry vào file đó ngay lập tức (format: date, triệu chứng, nguyên nhân, fix, rule tránh lại).
