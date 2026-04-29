@@ -46,15 +46,32 @@
 **Nguyên nhân gốc**: Agent bị nhầm lẫn giữa các endpoint của Paperclip API khi cần tương tác cập nhật task so với khi cần nộp báo cáo nghiên cứu sâu.
 
 **Tránh lại & Fix cứng (QUY TẮC BẮT BUỘC):**
-Để gửi dữ liệu về Paperclip Issue, bạn BẮT BUỘC phân loại độ dài/mục đích của dữ liệu và gọi ĐÚNG endpoint theo quy định trong `SKILL.md`:
+Để gửi dữ liệu về Paperclip Issue, bạn BẮT BUỘC phân loại độ dài/mục đích của dữ liệu và dùng **`pc.py` wrapper** (canonical, auto-handle UTF-8 + auth + body source — tránh curl quoting hell):
 
 1. **COMMENT NGẮN / TRẠNG THÁI TASK (Short Check-in):**
-   - Dùng: `POST /api/issues/{issueId}/comments` với payload `{"body": "Nội dung ngắn..."}`
-   - Hoặc cập nhật issue kèm comment: `PATCH /api/issues/{issueId}` với payload `{"status": "done", "comment": "Nội dung ngắn..."}`.
-   
-2. **BÁO CÁO NGHIÊN CỨU DÀI / PHỨC TẠP (Long Report):**
-   - TUYỆT ĐỐI KHÔNG dùng Comment. Comment sẽ làm vỡ định dạng và rút gọn nội dung quý giá từ Sequential Thinking.
-   - BẮT BUỘC dùng: `PUT /api/issues/{issueId}/documents/report`
-   - Payload: `{"title": "Báo Cáo Nghiên Cứu", "format": "markdown", "body": "BÊ NGUYÊN VĂN NỘI DUNG TỪ THOUGHT VÀO ĐÂY", "baseRevisionId": null}`.
+   - `python scripts/pc.py comment "Nội dung ngắn"` (body từ arg)
+   - Hoặc atomic update + comment: `python scripts/pc.py update --status done --comment "Nội dung ngắn"`
 
-**Tuyệt đối tuân thủ** định dạng dữ liệu (field `comment` cho `PATCH`, field `body` cho `POST comment` hoặc `PUT document`) để API không quăng lỗi `405 Method Not Allowed` hoặc bỏ qua dữ liệu.
+2. **BÁO CÁO NGHIÊN CỨU DÀI / PHỨC TẠP (Long Report):**
+   - TUYỆT ĐỐI KHÔNG dùng Comment cho nội dung dài. Comment sẽ làm vỡ định dạng và rút gọn nội dung quý giá từ Sequential Thinking.
+   - **BẮT BUỘC** ghi nội dung ra file trước rồi upload qua `pc.py doc`:
+     ```bash
+     # Ghi report content vào file
+     # (an toàn cho tiếng Việt + emoji + nested markdown)
+     python scripts/pc.py doc --key report --file /tmp/bao-cao.md
+     ```
+   - Wrapper auto-route tới `PUT /api/issues/{issueId}/documents/{key}` với content type `text/markdown`.
+
+**Lý do dùng wrapper thay raw curl/urllib**:
+- Tự thêm `Authorization: Bearer $PAPERCLIP_API_KEY` (server reject anonymous mutations sau 2026-04-29 sec-fetch guard)
+- Tự thêm `X-Paperclip-Run-Id: $PAPERCLIP_RUN_ID` (audit trail)
+- UTF-8 safe (Vietnamese diacritics + emoji không bị mangled bởi shell escaping)
+- Body từ file/stdin → tránh quoting hell với multi-line content
+
+**Endpoint mapping** (chỉ tham khảo — agent không cần tự build URL):
+| Hành động | pc.py | Raw API |
+|---|---|---|
+| Comment | `pc.py comment "..."` | `POST /api/issues/{id}/comments` |
+| Update + comment | `pc.py update --status X --comment "..."` | `PATCH /api/issues/{id}` |
+| Upload doc | `pc.py doc --key K --file F` | `PUT /api/issues/{id}/documents/{K}` |
+| Read fresh | `pc.py read --include-comments` | `GET /api/issues/{id}` + `/comments` |

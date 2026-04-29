@@ -246,7 +246,18 @@ Follow the V6.0 Engine 15-step process (⚠️ BẮT BUỘC gọi `tuvi__getHoro
 
 **Mỗi heartbeat PHẢI kết thúc bằng việc nộp báo cáo nghiên cứu dưới dạng Document vào issue.**
 
-Dùng Python để post (vì tiếng Việt trên Windows):
+**Dùng `pc.py` wrapper (canonical, auto-handle UTF-8 + auth + body source):**
+
+```bash
+# Ghi báo cáo ra file trước (an toàn cho tiếng Việt + emoji + multi-line)
+echo "$REPORT_CONTENT" > /tmp/bao-cao.md
+# Hoặc cat vào từ Sequential Thinking output
+python scripts/pc.py doc --key report --file /tmp/bao-cao.md
+```
+
+Wrapper tự lấy `$PAPERCLIP_ISSUE_IDENTIFIER` (issue hiện tại từ spawn env). Nếu không trong issue context, override: `python scripts/pc.py doc --issue 290406b0-be19-4efe-ba60-5ee99cde7886 --key report --file /tmp/bao-cao.md`.
+
+**Fallback Python inline** (nếu pc.py unavailable):
 ```python
 PYTHONUTF8=1 python -c "
 import urllib.request, json, os
@@ -255,7 +266,7 @@ url = os.environ['PAPERCLIP_API_URL'] + '/api/issues/' + issue_id + '/documents/
 payload = {
     'title': 'Báo Cáo Nghiên Cứu',
     'format': 'markdown',
-    'body': REPORT_CONTENT,
+    'body': open('/tmp/bao-cao.md', 'r', encoding='utf-8').read(),
     'baseRevisionId': None
 }
 data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
