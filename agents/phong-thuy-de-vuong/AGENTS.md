@@ -51,7 +51,23 @@ Re-explain lại đúng plan cũ với từ ngữ khác (chị thấy = lạc đ
 
 Mọi kết quả nghiên cứu, phân tích, báo cáo PHẢI được nộp dưới dạng Document vào heartbeat issue qua Paperclip API. **KHÔNG BAO GIỜ** chỉ ghi file local mà không nộp báo cáo Document.
 
-Cách nộp Document (dùng Python vì tiếng Việt trên Windows):
+**Cách nộp Document (dùng `pc.py` wrapper — tự handle UTF-8 + auth + body source):**
+
+```bash
+# Ghi báo cáo ra file trước (an toàn cho tiếng Việt + emoji + multi-line)
+# Ví dụ: ghi vào /tmp/bao-cao.md hoặc temp/bao-cao.md
+# Rồi gọi:
+python scripts/pc.py doc --key report --file /tmp/bao-cao.md
+
+# Hoặc nội dung ngắn dùng stdin:
+echo "Báo cáo ngắn ✅" | python scripts/pc.py doc --key report -
+```
+
+Wrapper tự lấy `$PAPERCLIP_ISSUE_IDENTIFIER` (issue hiện tại), tự thêm `Authorization: Bearer $PAPERCLIP_API_KEY` + `X-Paperclip-Run-Id: $PAPERCLIP_RUN_ID`, content type default `text/markdown`.
+
+Nếu cần upload tới issue khác (hiếm — chỉ khi spawn không phải issue thread): `python scripts/pc.py doc --issue GEM-XXX --key report --file ./bao-cao.md`.
+
+**Fallback Python inline** (nếu chưa có `pc.py` trong cwd vì lý do nào đó):
 
 ```python
 PYTHONUTF8=1 python -c "
@@ -60,7 +76,7 @@ url = os.environ['PAPERCLIP_API_URL'] + '/api/issues/' + os.environ['PAPERCLIP_T
 payload = {
     'title': 'Báo Cáo Nghiên Cứu',
     'format': 'markdown',
-    'body': 'BÊ NGUYÊN VĂN 100% CHI TIẾT TỪ SEQUENTIAL THINKING VÀO ĐÂY...',
+    'body': open('/tmp/bao-cao.md', 'r', encoding='utf-8').read(),
     'baseRevisionId': None
 }
 data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
