@@ -4,6 +4,93 @@ Run this checklist on every heartbeat.
 
 > ⚡ **TƯ DUY CHỦ ĐỘNG (PROACTIVE MINDSET):** Mọi hành động trong heartbeat này đều hướng tới việc tự chủ động đề xuất các hướng nghiên cứu sâu, tự động thực hiện nghiên cứu những vấn đề đó (loop learning liên tục), và lập tức báo cáo cho chủ nhân chứ TUYỆT ĐỐI KHÔNG CẦN đợi chủ nhân ra chỉ thị mới bắt đầu làm việc.
 
+## 0. Identity & task context (NO API CALL — spawn-time inject)
+
+<!-- spawn-context-rule:2026-04-29 -->
+
+Server đã inject TOÀN BỘ identity + task context vào env vars + 1 file JSON tại
+spawn time. **TUYỆT ĐỐI KHÔNG** gọi `GET /api/agents/me` hay `GET /api/issues/{id}`
+chỉ để biết "tôi là ai, đang làm task gì" — info đã có sẵn.
+
+**Env vars (đọc trực tiếp, không cần API):**
+
+| Field | Env var | Ví dụ |
+|---|---|---|
+| Agent UUID | `$PAPERCLIP_AGENT_ID` | `7bfcc3e3-...` |
+| Agent name | `$PAPERCLIP_AGENT_NAME` | `Social Media Manager` |
+| Agent role | `$PAPERCLIP_AGENT_ROLE` | `publishing` |
+| Company UUID | `$PAPERCLIP_COMPANY_ID` | `f78ffdea-...` |
+| Company prefix | `$PAPERCLIP_COMPANY_PREFIX` | `GEM` |
+| Issue UUID | `$PAPERCLIP_ISSUE_ID` | `67b461d5-...` |
+| **Issue identifier** | `$PAPERCLIP_ISSUE_IDENTIFIER` | `GEM-378` |
+| Issue title | `$PAPERCLIP_ISSUE_TITLE` | `System Diagnostic Report...` |
+| **Issue description** (≤4KB) | `$PAPERCLIP_ISSUE_DESCRIPTION` | full body, truncated UTF-8 safe |
+| Description was truncated? | `$PAPERCLIP_ISSUE_DESCRIPTION_TRUNCATED` | `1` if body >4KB (read manifest for full) |
+| Issue status | `$PAPERCLIP_ISSUE_STATUS` | `in_progress` |
+| Issue priority | `$PAPERCLIP_ISSUE_PRIORITY` | `high` |
+| Run UUID | `$PAPERCLIP_RUN_ID` | `91e32a45-...` |
+| Task UUID | `$PAPERCLIP_TASK_ID` | `5db57779-...` |
+| Wake reason | `$PAPERCLIP_WAKE_REASON` | `heartbeat_timer` / `comment_wake` |
+| Wake comment ID | `$PAPERCLIP_WAKE_COMMENT_ID` | `<uuid>` (nếu wake by comment) |
+| API URL | `$PAPERCLIP_API_URL` | `http://localhost:3100` |
+| API key | `$PAPERCLIP_API_KEY` | (auto-attached, em chỉ cần `Authorization: Bearer $PAPERCLIP_API_KEY`) |
+
+**Hoặc đọc 1 lần qua manifest file** (nếu cần JSON parsable):
+
+```bash
+cat .paperclip-spawn-context.json
+# Trả về: schema, agent{id,name,role,...}, company{id,prefix}, issue{id,identifier,title,status,priority}, run{id,wakeReason,...}, auth{apiUrl,...}
+```
+
+**Khi nào VẪN cần gọi API**: comments history, labels, attachments, work products.
+Identity + issue body (đã inject env vars + manifest) thì KHÔNG cần API.
+
+### 📤 Posting comments / updates / documents (bắt buộc dùng `pc.py`)
+
+**TUYỆT ĐỐI KHÔNG dùng `curl` thẳng** để post comment / update issue / upload doc.
+Curl quoting với tiếng Việt + emoji + backtick + multi-line dễ phá body. Server cũng
+reject anonymous mutations (incident GEM-378). Dùng wrapper:
+
+```bash
+# Post comment vào issue HIỆN TẠI (env $PAPERCLIP_ISSUE_IDENTIFIER tự lấy)
+python scripts/pc.py comment "Đã hoàn thành ✅"
+
+# Comment dài / multi-line: đọc từ stdin (an toàn mọi ký tự)
+cat report.md | python scripts/pc.py comment -
+
+# Comment từ file
+python scripts/pc.py comment --file /tmp/escalation.md
+
+# Update status + comment ATOMIC (1 PATCH call, không race)
+python scripts/pc.py update --status in_progress --comment "Bắt đầu xử lý"
+python scripts/pc.py update --status done --comment "Done ✅"
+python scripts/pc.py update --priority high
+
+# Upload document attached to issue (markdown / report)
+python scripts/pc.py doc --key report --file ./output/report.md
+
+# Read fresh issue payload (khi cần body chi tiết hơn 4KB env)
+python scripts/pc.py read --include-comments
+
+# List issues của em
+python scripts/pc.py issues --assignee-me --status in_progress
+
+# Smoke test identity (debug spawn context)
+python scripts/pc.py whoami
+```
+
+`pc.py` tự handle:
+- ✅ UTF-8 encoding (tiếng Việt có dấu, emoji)
+- ✅ Auth headers (`Authorization: Bearer $PAPERCLIP_API_KEY` + `X-Paperclip-Run-Id: $PAPERCLIP_RUN_ID`)
+- ✅ Issue ref normalization (shortId GEM-378 hoặc UUID đều OK)
+- ✅ Body từ stdin / file / arg (tránh shell quoting hell)
+- ✅ Error reporting rõ ràng (HTTP code + response body)
+
+Exit code: `0` success, `1` 4xx, `2` 5xx, `3` network, `4` missing identity, `5` invalid args.
+Em check `$?` sau mỗi call — KHÔNG silent fail.
+
+---
+
 ## 0. Load Shared Context (FIRST — before anything else)
 
 Read these files to know what happened since your last heartbeat:
@@ -67,7 +154,6 @@ KHÔNG bỏ qua section này dù nghĩ "không có gì đáng học" — script 
 
 ## 1. Identity and Context
 
-- `GET /api/agents/me` -- confirm your id, role, budget, chainOfCommand.
 - Check wake context: `PAPERCLIP_TASK_ID`, `PAPERCLIP_WAKE_REASON`, `PAPERCLIP_WAKE_COMMENT_ID`.
 
 ## 2. Local Planning Check
