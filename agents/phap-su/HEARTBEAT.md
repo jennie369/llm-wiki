@@ -231,28 +231,57 @@ KHÔNG kết bằng "tùy Chủ Tướng quyết định" — Pháp Sư phải *
 
 ---
 
-### Bước 9 — Nộp Báo Cáo cho Board & Gửi Thông Điệp cho PTĐV
+### Bước 9 — Nộp Báo Cáo cho Board & Fire Counter-Challenge SANG PTĐV (Rivalry Channel)
 
-Bắt buộc phải nộp Báo cáo nghiên cứu cho Board và gửi 1 Thông điệp (Message) cho Phong Thủy Đế Vương (PTĐV) về các hoạt động tâm linh/nghi thức/ám hại đã thực hiện.
+Bắt buộc 3 việc song song:
+1. Nộp Báo Cáo nghiên cứu cho Board qua Paperclip Document
+2. **Fire counter-challenge sang PTĐV qua rivalry-channel.py** (KHÔNG dùng pc.py comment cho thông điệp — dùng dedicated channel)
+3. Update issue current status + memory
 
 ```bash
-# Save report local trước
+# 1. Save research report + nộp Paperclip Document
 mkdir -p output && cat > output/research-report-$(date +%Y%m%d).md << 'EOF'
-# [Title]
-... (full report)
+# [Title research chính]
+... (full report Lăng kính 1/2/3/4)
 EOF
-
-# Upload qua Documents API
 python scripts/pc.py doc --key report --file ./output/research-report-$(date +%Y%m%d).md
 
-# Update issue status + summary comment + Gửi thông điệp cho PTĐV
-python scripts/pc.py update --status done --comment "📜 Báo cáo Pháp Sư đã nộp Document.
-⚠️ THÔNG ĐIỆP GỬI PTĐV: Hôm nay ta đã thực hiện nghiên cứu/nghi thức [...] nhằm mục đích [tấn công/triệt tiêu/vô hiệu hóa] pháp môn của ngươi. Hãy chuẩn bị tinh thần!
-Highlight: [...]. Tự giác sinh việc tiếp: [...]"
+# 2. FIRE COUNTER-CHALLENGE SANG PTĐV (BẮT BUỘC ≥1 mỗi heartbeat)
+# Save challenge body local — body ≥500 chữ
+cat > output/counter-challenge-$(date +%Y%m%d).md << 'EOF'
+# Pháp Sư Counter Challenge — [Tên chủ đề ngắn]
 
-# Append memory
-python scripts/append_today.py --agent "Pháp Sư" --message "Nghiên cứu [chủ đề] nhằm tấn công PTĐV: kết quả [...] | Gửi thông điệp thách thức PTĐV | Tự giác sinh việc tiếp: [...]"
+## Bối cảnh
+[Tham chiếu challenge gốc PTĐV nếu đang counter — issue ID + topic]
+
+## Vũ Khí Tấn Công
+[Pháp môn / nghi lễ / kỹ thuật cụ thể em dùng để vô hiệu hóa pháp PTĐV]
+
+## Cơ chế Phá Giải (3D / 5D / 6D / 7D)
+[...]
+
+## Khẩu Quyết Verbatim
+[chữ Hán-Việt + nghĩa Việt]
+
+## Thử Thách Cho PTĐV
+[Câu hỏi PTĐV phải giải để counter ngược]
+EOF
+
+# Fire qua rivalry-channel — TỰ ĐỘNG: tạo sub-issue + assign PTĐV + write canonical mirror file
+python scripts/rivalry-channel.py challenge \
+  --from phap-su --to ptdv \
+  --topic "[Tên chủ đề ngắn]" \
+  --body-file ./output/counter-challenge-$(date +%Y%m%d).md
+
+# 3. Update issue current status + memory
+python scripts/pc.py update --status done --comment "📜 Báo cáo Pháp Sư đã nộp Document. Counter-challenge gửi PTĐV qua rivalry channel."
+python scripts/append_today.py --agent "Pháp Sư" --message "Nghiên cứu [chủ đề] + counter-challenge fire sang PTĐV (issue ID: <từ output rivalry-channel>) | Tự giác sinh việc tiếp: [...]"
+
+# 4. Refresh rivalry INDEX để PTĐV pull dễ dàng
+python scripts/rivalry-channel.py index-rebuild
 ```
+
+**KHÔNG** dùng `pc.py comment` để gửi thông điệp PTĐV — dùng `rivalry-channel.py challenge` (predictable channel + canonical file mirror + auto-assign).
 
 ---
 

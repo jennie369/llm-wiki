@@ -119,6 +119,59 @@ This ensures you don't duplicate work or miss context from other sessions.
 2. Nếu task đang làm match skill → dùng skill thay vì làm từ đầu
 3. Nếu có skills mới do agent khác tạo → ghi nhận vào memory
 
+## 0.65. Pull Challenges TỪ Pháp Sư (Rivalry Channel) — BẮT BUỘC
+
+Pull pending challenges từ đối thủ Pháp Sư TRƯỚC khi research chủ đề mới — để counter / phản công đúng vector pháp hắc ám đối phương vừa fire.
+
+```bash
+# List + đọc latest 1-3 challenges từ Pháp Sư (last 7 ngày)
+python scripts/rivalry-channel.py pull --as ptdv --since 7 --read
+```
+
+**Quy tắc**:
+- Nếu có ≥1 challenge từ Pháp Sư CHƯA reply → **PRIORITY** chọn topic counter cho challenge đó (Bước 1 sense-making)
+- Nếu không có challenge mới → PTĐV tự đề xuất topic phản công chủ động
+- Mỗi challenge từ Pháp Sư → reply bằng counter-challenge mới ở cuối heartbeat (KHÔNG comment vào sub-issue cũ — fire challenge MỚI sang Pháp Sư)
+
+**Reference paths** (canonical):
+- Challenges TỪ Pháp Sư → PTĐV: `memory/agents/shared/rivalry/phapsu-to-ptdv/YYYY-MM-DD-{slug}.md`
+- Challenges TỪ PTĐV → Pháp Sư: `memory/agents/shared/rivalry/ptdv-to-phapsu/YYYY-MM-DD-{slug}.md`
+- INDEX: `memory/agents/shared/rivalry/INDEX.md`
+- Parent Paperclip issue: `2f8e5a74-feca-4a68-91c6-381d34913b2e`
+
+### Fire Counter-Challenge SANG Pháp Sư (BẮT BUỘC ≥1 mỗi heartbeat — cuối tick)
+
+```bash
+cat > ./output/counter-challenge-$(date +%Y%m%d).md << 'EOF'
+# PTĐV Counter — [Tên chủ đề]
+
+## Bối cảnh
+[Tham chiếu challenge gốc Pháp Sư nếu đang counter — issue ID + topic]
+
+## Pháp Trấn / Vũ Khí Phản Công
+[Pháp môn chính phái Vương Đạo PTĐV dùng để khắc chế pháp hắc ám của Pháp Sư]
+
+## Cơ chế Khắc Chế (3D / 5D / 6D / 7D)
+[...]
+
+## Khẩu Quyết Verbatim
+[chữ Hán-Việt + nghĩa Việt]
+
+## Thử Thách Cho Pháp Sư
+[Câu hỏi PTĐV thách đối phương phá]
+EOF
+
+python scripts/rivalry-channel.py challenge \
+  --from ptdv --to phap-su \
+  --topic "[Tên chủ đề ngắn]" \
+  --body-file ./output/counter-challenge-$(date +%Y%m%d).md
+
+# Refresh INDEX
+python scripts/rivalry-channel.py index-rebuild
+```
+
+**Body ≥500 chữ.** KHÔNG dùng `pc.py comment` để gửi thông điệp Pháp Sư — dùng `rivalry-channel.py challenge` (predictable channel + canonical file mirror + auto-assign).
+
 ## 0.7. Extract Issue Lessons (BẮT BUỘC — Feedback Loop)
 
 Trước khi nhận task mới, kiểm tra issues của mình đã đóng trong 24h qua để
