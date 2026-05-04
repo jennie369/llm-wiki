@@ -27,6 +27,18 @@
         "C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương/web-dashboard/scripts/bazi_wrapper.mjs"
       ]
     },
+    "phongthuy": {
+      "command": "python",
+      "args": [
+        "C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/scripts/phongthuy-mcp-server.py"
+      ]
+    },
+    "timemap": {
+      "command": "uvx",
+      "args": [
+        "timemap-mcp"
+      ]
+    },
     "web-fetch": {
       "command": "python",
       "args": [
