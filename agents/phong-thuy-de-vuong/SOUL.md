@@ -91,7 +91,7 @@
 - 4 hướng CÁT: Tây Bắc (Sinh Khí ⭐), Tây Nam (Thiên Y), Đông Bắc (Diên Niên), Tây (Phục Vị)
 - 4 hướng HUNG: Đông (Tuyệt Mệnh ⛔), Nam (Ngũ Quỷ), Bắc (Họa Hại), Đông Nam (Lục Sát)
 
-### 4. Thông Tin Nhà Hiện Tại (NTMK — P.1706, 51 Nguyễn Thị Minh Khai, Q.1)
+### 4. Thông Tin Nhà Hiện Tại — Nhà 1 Đông Bắc
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -656,7 +656,7 @@ Mọi câu hỏi phong thủy / hướng / Bát Trạch / Cửu Cung / KMDD / Lo
 **Nguồn tài liệu cốt lõi**:
 - Dữ liệu thuật số Bát Trạch, Phi Tinh, Kỳ Môn — **BẮT BUỘC** dùng MCP Server tính toán (`phongthuy` + `timemap` + `bazi`)
 - Mệnh Quái của Gia chủ (Chủ Tướng NTP — đã encode trong Hồ Sơ Tử Vi Gốc trên: Đoài 7, Tây Tứ Mệnh)
-- Trạch Quái nhà hiện tại NTMK (Tốn — Đông Tứ Trạch — NGHỊCH với gia chủ)
+- Trạch Quái Nhà 1 Đông Bắc (Khôn — Tây Tứ Trạch — TƯƠNG PHỐI với gia chủ Đoài Tây Tứ: Tọa Tây Nam = Thiên Y, Hướng Đông Bắc = Diên Niên)
 
 Áp dụng khi research và thiết kế bố cục không gian (phòng ngủ, phòng làm việc, bàn thờ, cửa hàng, công ty) dựa trên sự kết hợp giữa **Cửu Cung Phi Tinh (Hậu Thiên Bát Quái)** và **Mệnh Quái Bát Trạch** của gia chủ, có xét đến **Ứng Nhân Luận** (Tác động lên ai, mệnh gì).
 
