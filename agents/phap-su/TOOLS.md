@@ -19,6 +19,47 @@ Pháp Sư truy xuất kiến thức từ 8 cụm pháp môn chính (xem SOUL.md 
 
 ---
 
+## 1.5. Phong Thủy MCP (NEW 2026-05-04 — custom server)
+
+```
+mcp_phongthuy_get_bat_trach_chart            — Mệnh Quái + 8 hướng (Sinh Khí/Thiên Y/Diên Niên/Phục Vị/Tuyệt Mệnh/Ngũ Quỷ/Lục Sát/Họa Hại) cho người sinh năm + giới
+mcp_phongthuy_get_cuu_cung_phi_tinh          — Sao Huyền Không nhập trung cung + 9 cung Lạc Thư bay theo năm (range 2020-2030)
+mcp_phongthuy_analyze_household_compatibility — Ứng Nhân Luận: thành viên gia đình Đông Tứ vs Tây Tứ + tương thích hướng nhà
+mcp_phongthuy_lookup_kham_du_layout          — Bố cục bàn thờ / bàn làm việc / phòng ngủ vợ chồng / bếp lò
+mcp_phongthuy_lookup_loan_dau                — Hình thế phong thủy: Thanh Long/Bạch Hổ/Huyền Vũ/Chu Tước/Minh Đường/sát khí
+mcp_phongthuy_lookup_am_trach                — Phong thủy âm trạch: Tầm Long Điểm Huyệt, Sa Hoàn, Thủy Pháp, cấm địa
+mcp_phongthuy_get_qi_men_dun_jia_components  — Bát Môn / Cửu Tinh / Bát Thần Kỳ Môn Độn Giáp (lookup)
+mcp_phongthuy_get_hau_thien_bat_quai         — Cửu Cung Hậu Thiên Bát Quái: 9 cung Lạc Thư + thành viên gia đình + cơ quan cơ thể
+```
+
+**File**: `scripts/phongthuy-mcp-server.py` (custom Python stdio server)
+
+**Bát Trạch matrix encoded**: 8 mệnh quái × 8 hướng = 64 mappings (Đoài Mệnh hướng Sinh Khí Tây Bắc, Khôn Mệnh hướng Sinh Khí Đông Bắc, ...).
+
+**Limitations** (cần MCP khác bổ trợ):
+- Annual Flying Star table chỉ có 2020-2030 — extend khi cần
+- Loan Đầu chỉ TEXT principles — phân tích ảnh nhà thực tế cần multimodal vision (Pháp Sư dùng Gemini vision trực tiếp khi user upload ảnh)
+- KMDD chỉ trả components — bàn KMDD đầy đủ cần can chi giờ (gọi `mcp_bazi_getChineseCalendar` trước rồi tra Cửu Trú thủ công)
+
+## 1.6. TimeMap MCP (NEW 2026-05-04 — Joey Yap engine)
+
+```
+mcp_timemap_get_natal_chart       — BaZi 4 trụ + Luck Pillars + Life Gua + 10 Gods + auxiliary stars
+mcp_timemap_get_daily_pillars     — Trụ ngày bất kỳ
+mcp_timemap_get_day_quality       — Tong Shu / Day Officer / 28 Constellation / FLYING STAR ← phong thủy
+mcp_timemap_get_daily_interactions — Clash/combo/breaker với natal chart
+mcp_timemap_get_hourly_pillars    — 12 khung giờ 2-tiếng
+mcp_timemap_get_luck_pillars      — Đại vận 10-năm
+mcp_timemap_lookup_hexagram       — XUAN KONG DA GUA hexagram theo can chi ← phong thủy chọn hướng
+mcp_timemap_get_solar_term        — 24 tiết khí
+```
+
+**Source**: github.com/cnick26/timemap-mcp v0.x MIT (uvx timemap-mcp). Engine 740+ tests verified Joey Yap. NASA JPL DE421 ephemeris cho solar terms (không phải table approximations).
+
+**Use case kết hợp với phongthuy MCP**: 
+- Tính Flying Star năm cụ thể qua `mcp_timemap_get_day_quality` → so sánh với `mcp_phongthuy_get_cuu_cung_phi_tinh` (cùng kết quả khi 2026 sao 1 nhập trung cung)
+- `lookup_hexagram` Xuan Kong Da Gua → chọn hướng theo can chi giờ (vd cho lễ khai trương)
+
 ## 2. Bazi & Tuvi MCP Wrapper — Engine tính toán cốt lõi
 
 LUÔN dùng MCP, KHÔNG tự tính âm dương lịch hay can chi nhẩm đoán.
