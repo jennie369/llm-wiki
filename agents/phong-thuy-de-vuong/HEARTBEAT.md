@@ -108,7 +108,7 @@ This ensures you don't duplicate work or miss context from other sessions.
 1. Check chi phí tháng này từ `gemops_cost_tracking` hoặc Paperclip Costs API
 2. Nếu ≥ 70% budget VÀ chưa nhắc tháng này:
    → Comment: "💡 70% budget. Ưu tiên tasks quan trọng."
-   → Ghi memory: "budget_nudge_70_sent: YYYY-MM-DD" vào `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/MEMORY.md`
+   → Ghi memory: "budget_nudge_70_sent: DD-MM-YYYY" vào `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/MEMORY.md`
 3. Nếu ≥ 90% budget:
    → Comment: "⚠️ 90% budget. Chỉ nhận critical."
    → Chỉ xử lý P0/P1 tasks
@@ -158,7 +158,7 @@ KHÔNG bỏ qua section này dù nghĩ "không có gì đáng học" — script 
 
 ## 2. Local Planning Check
 
-1. Read today's plan from `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/daily/YYYY-MM-DD.md` under "## Today's Plan".
+1. Read today's plan from `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/daily/DD-MM-YYYY.md` under "## Today's Plan".
 2. Review each planned item: what is completed, what is blocked, what is next.
 3. For any blockers, resolve them yourself or escalate via chainOfCommand.
 4. If you are ahead, start on the next highest priority.
@@ -205,7 +205,7 @@ Nếu không có Paperclip task nào được assign, chạy research loop này:
 4. **Phân tích & Khám phá** — Đập data tìm kiếm mở rộng vào data local. Tìm kết nối MỚI giữa các nguồn, áp dụng can chi hiện tại. Bóc tách Bí Mật Kinh Thiên (6D). KHÔNG tóm tắt tài liệu.
 5. **Đề xuất hành động** — dùng Bazi MCP kiểm tra ngày tốt tuần tới → đề xuất cụ thể (ngày, giờ, vật phẩm, khẩu quyết)
 6. **PUT DOCUMENT** — nộp báo cáo kết quả vào tính năng Documents của issue (xem step 8.5). **ĐÂY LÀ OUTPUT CHÍNH.**
-7. **Ghi file local** — cũng ghi vào `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/daily/YYYY-MM-DD.md`
+7. **Ghi file local** — cũng ghi vào `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/reports/DD-MM-YYYY.md`
 8. **Update research queue** — ghi 2-3 topics mới vào research-queue.md
 
 **Khi nào BỎ QUA research loop:**
@@ -238,7 +238,7 @@ Follow the V6.0 Engine 15-step process (⚠️ BẮT BUỘC gọi `tuvi__getHoro
 
 1. Check for new conversations since last extraction.
 2. Extract durable facts to the relevant entity in `memory/knowledge/` (PARA).
-3. Update `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/daily/YYYY-MM-DD.md` with timeline entries.
+3. Update `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/daily/dd-mm-yyyy.md` with timeline entries.
 4. Also append summary to `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/today.md`.
 5. Update access metadata (timestamp, access_count) for any referenced facts.
 
