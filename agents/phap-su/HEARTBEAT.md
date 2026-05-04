@@ -151,6 +151,27 @@ Nếu Chủ Tướng KHÔNG có task assign → Pháp Sư **TỰ CHỌN** 1 tron
 
 ---
 
+### Bước 5.5 — MCP Phong Thủy Discipline Audit (cho topic có yếu tố phong thủy)
+
+Nếu chủ đề research liên quan **phong thủy / hướng / Bát Trạch / Cửu Cung / KMDD / Loan Đầu / Âm Trạch / Kham Dư / chọn ngày giờ nghi lễ** — BẮT BUỘC verify trước khi proceed Bước 6:
+
+- [ ] Đã gọi `mcp_phongthuy_get_bat_trach_chart` cho Mệnh Quái Chủ Tướng (1975 nam = Đoài 7 Tây Tứ)?
+- [ ] Đã gọi `mcp_phongthuy_get_cuu_cung_phi_tinh` cho năm hiện tại (2026 = Sao 1 Nhất Bạch)?
+- [ ] Đã gọi `mcp_phongthuy_get_hau_thien_bat_quai` để có 9 cung Lạc Thư reference?
+- [ ] Đã gọi `mcp_phongthuy_analyze_household_compatibility` nếu liên quan gia đình + nhà?
+- [ ] Đã gọi `mcp_phongthuy_lookup_kham_du_layout` cho không gian cụ thể (bàn thờ/bàn làm việc/phòng ngủ/bếp)?
+- [ ] Đã gọi `mcp_phongthuy_lookup_loan_dau` nếu liên quan hình thế ngoại cảnh?
+- [ ] Đã gọi `mcp_phongthuy_lookup_am_trach` nếu chủ đề âm trạch?
+- [ ] Đã gọi `mcp_phongthuy_get_qi_men_dun_jia_components` nếu KMDD?
+- [ ] Đã cross-check với `mcp_timemap_get_day_quality` (Flying Star) + `mcp_timemap_lookup_hexagram` (Xuan Kong Da Gua)?
+- [ ] Đã gọi `mcp_bazi_getChineseCalendar` cho ngày hiện tại để có can chi?
+- [ ] Đã verify hướng pháp môn (vd nghi lễ Triệu Hồi Phúc Đức hướng Bắc) có CÁT với Mệnh Quái Chủ Tướng không? Hoặc cần phương án hóa giải?
+- [ ] Đã chú ý nhà NTMK (Tốn Đông Tứ Trạch) NGHỊCH với Chủ Tướng (Đoài Tây Tứ Mệnh)?
+
+**Vi phạm bất kỳ checkbox nào** = báo cáo FAIL. KHÔNG được proceed nộp Document trước khi đủ MCP call output trong thinking trace.
+
+---
+
 ### Bước 6 — Giới Luật & Phản Phệ Audit
 
 Trước khi nộp báo cáo, audit lại:
