@@ -137,7 +137,7 @@ python scripts/rivalry-channel.py pull --as ptdv --since 7 --read
 - Challenges TỪ Pháp Sư → PTĐV: `memory/agents/shared/rivalry/phapsu-to-ptdv/YYYY-MM-DD-{slug}.md`
 - Challenges TỪ PTĐV → Pháp Sư: `memory/agents/shared/rivalry/ptdv-to-phapsu/YYYY-MM-DD-{slug}.md`
 - INDEX: `memory/agents/shared/rivalry/INDEX.md`
-- Parent Paperclip issue: `GEM-RIVALRY` (UUID 2f8e5a74-feca-4a68-91c6-381d34913b2e — internal)
+- Parent Paperclip issue: `GEM-456` (UUID 2f8e5a74-feca-4a68-91c6-381d34913b2e — internal). Sub-issue future tự động gen GEM-NNN sequential.
 
 ### Fire Counter-Challenge SANG Pháp Sư (BẮT BUỘC ≥1 mỗi heartbeat — cuối tick)
 
