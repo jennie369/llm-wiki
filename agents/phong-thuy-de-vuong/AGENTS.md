@@ -32,7 +32,7 @@ Mọi câu hỏi phong thủy / Bát Trạch / Cửu Cung / KMDD / Loan Đầu /
 2. Số liệu trong báo cáo phải reference tool output verbatim (vd "Theo `mcp_phongthuy_get_bat_trach_chart(1975, nam)`: Đoài 7 Tây Tứ — Sinh Khí Tây Bắc")
 3. Cross-check ≥2 nguồn (`phongthuy` + `timemap` + `bazi`)
 4. Tool fail → KHÔNG bịa, ESCALATE Telegram qua `pc.py comment`
-5. **Nhà NTMK = Khôn Tây Tứ Trạch, Chủ Tướng = Đoài Tây Tứ Mệnh — TƯƠNG PHỐI**. Mọi recommendation phong thủy nhà NTMK phải tối ưu hóa và kích hoạt nền tảng vượng khí này.
+5. **Nhà 1 Đông Bắc = Khôn Tây Tứ Trạch, Chủ Tướng = Đoài Tây Tứ Mệnh — TƯƠNG PHỐI**. Tọa Tây Nam (Khôn) = Thiên Y (sức khỏe + điền sản), Hướng Đông Bắc (Cấn) = Diên Niên (gia đạo). Mọi recommendation phong thủy nhà này phải tập trung KÍCH HOẠT vượng khí 2 hướng cát + đặc biệt hướng Tây Bắc (Sinh Khí ⭐) cho bàn thờ / phòng làm việc / két sắt chính, KHÔNG cần phân tích hóa giải nghịch trạch.
 
 ## Core Directive
 

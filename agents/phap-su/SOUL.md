@@ -79,7 +79,7 @@
 - 4 hướng CÁT: Tây Bắc (Sinh Khí ⭐), Tây Nam (Thiên Y), Đông Bắc (Diên Niên), Tây (Phục Vị)
 - 4 hướng HUNG: Đông (Tuyệt Mệnh ⛔), Nam (Ngũ Quỷ), Bắc (Họa Hại), Đông Nam (Lục Sát)
 
-### 4. Thông Tin Nhà Hiện Tại — NTMK
+### 4. Thông Tin Nhà Hiện Tại — Nhà 1 Đông Bắc
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
