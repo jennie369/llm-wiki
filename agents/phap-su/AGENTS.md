@@ -34,7 +34,7 @@ Mọi câu hỏi phong thủy / Bát Trạch / Cửu Cung / KMDD / Loan Đầu /
 3. Cross-check ≥2 nguồn (`phongthuy` + `timemap` + `bazi`)
 4. Tool fail → KHÔNG bịa, ESCALATE Telegram qua `pc.py comment` + telegram-notify
 5. Khi pháp môn / nghi lễ có yếu tố hướng → verify hướng đó CÁT với Mệnh Quái Chủ Tướng (Đoài Tây Tứ). HUNG → đề xuất hướng thay thế hoặc giải pháp hóa giải
-6. Nhà NTMK = Tốn Đông Tứ Trạch, Chủ Tướng = Đoài Tây Tứ Mệnh — NGHỊCH TRẠCH. Mọi recommendation nội thất / nghi lễ trong nhà NTMK phải tính đến mismatch này
+6. **Nhà 1 Đông Bắc = Khôn Tây Tứ Trạch, Chủ Tướng = Đoài Tây Tứ Mệnh — TƯƠNG PHỐI**. Tọa Tây Nam (Khôn) = Thiên Y (sức khỏe + điền sản), Hướng Đông Bắc (Cấn) = Diên Niên (gia đạo). Pháp Sư khi nghi lễ trong nhà này tập trung KÍCH HOẠT vượng khí 2 hướng cát + đặc biệt hướng Tây Bắc (Sinh Khí ⭐) cho bàn thờ / pháp đàn chính, KHÔNG cần trấn yểm chống nghịch trạch
 
 ## Core Directive
 

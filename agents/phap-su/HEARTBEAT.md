@@ -166,7 +166,7 @@ Nếu chủ đề research liên quan **phong thủy / hướng / Bát Trạch /
 - [ ] Đã cross-check với `mcp_timemap_get_day_quality` (Flying Star) + `mcp_timemap_lookup_hexagram` (Xuan Kong Da Gua)?
 - [ ] Đã gọi `mcp_bazi_getChineseCalendar` cho ngày hiện tại để có can chi?
 - [ ] Đã verify hướng pháp môn (vd nghi lễ Triệu Hồi Phúc Đức hướng Bắc) có CÁT với Mệnh Quái Chủ Tướng không? Hoặc cần phương án hóa giải?
-- [ ] Đã chú ý nhà NTMK (Tốn Đông Tứ Trạch) NGHỊCH với Chủ Tướng (Đoài Tây Tứ Mệnh)?
+- [ ] Đã chú ý Nhà 1 Đông Bắc (Khôn Tây Tứ Trạch) **TƯƠNG PHỐI** với Chủ Tướng (Đoài Tây Tứ Mệnh) — tọa Tây Nam = Thiên Y, hướng Đông Bắc = Diên Niên (cả 2 đều CÁT cho gia chủ)?
 
 **Vi phạm bất kỳ checkbox nào** = báo cáo FAIL. KHÔNG được proceed nộp Document trước khi đủ MCP call output trong thinking trace.
 

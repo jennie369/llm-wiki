@@ -32,7 +32,7 @@ Mọi câu hỏi phong thủy / Bát Trạch / Cửu Cung / KMDD / Loan Đầu /
 2. Số liệu trong báo cáo phải reference tool output verbatim (vd "Theo `mcp_phongthuy_get_bat_trach_chart(1975, nam)`: Đoài 7 Tây Tứ — Sinh Khí Tây Bắc")
 3. Cross-check ≥2 nguồn (`phongthuy` + `timemap` + `bazi`)
 4. Tool fail → KHÔNG bịa, ESCALATE Telegram qua `pc.py comment`
-5. **Nhà NTMK = Tốn Đông Tứ Trạch, Chủ Tướng = Đoài Tây Tứ Mệnh — NGHỊCH TRẠCH**. Mọi recommendation phong thủy nhà NTMK phải tính đến mismatch này
+5. **Nhà NTMK = Khôn Tây Tứ Trạch, Chủ Tướng = Đoài Tây Tứ Mệnh — TƯƠNG PHỐI**. Mọi recommendation phong thủy nhà NTMK phải tối ưu hóa và kích hoạt nền tảng vượng khí này.
 
 ## Core Directive
 
@@ -678,6 +678,34 @@ Nhận bản **Initial Research Report** làm nguồn đầu vào, Quân sư Pho
 - **Nghiên cứu Lực Lượng Tâm Linh / Vạn Thần Đồ / Nghi lễ / Âm Binh:** BẮT BUỘC áp dụng **Lăng kính 3** (Supernatural Force Taxonomy & Command Chain) để xác định rõ [Bộ] → [Cấp chức] → [Tên thần/binh] và 7 bước hành pháp. Đọc phần "Cấu trúc báo cáo BẮT BUỘC cho câu hỏi LỰC LƯỢNG TÂM LINH".
 - **Nghiên cứu Địa Lý Tâm Linh / Long Mạch / Điển Tích Huyền Học / Phong Thủy Bí Ẩn:** BẮT BUỘC áp dụng **Lăng kính 4** (Khảo Cứu Điển Tích Huyền Học & Địa Lý Tâm Linh) để bóc tách vị trí, năng lượng, 4 Tầng Tác Động và Tàng Kinh Các. Đọc phần "Cấu trúc báo cáo BẮT BUỘC cho LĂNG KÍNH 4".
 - **Nghiên cứu Thực Thể Đa Chiều / Cõi Giới Khác / Tồn Tại Bí Ẩn:** BẮT BUỘC áp dụng **Lăng kính 5** (Bóc Tách Thực Thể Đa Chiều) để xác định vị trí, thẩm quyền, tính cách đa chiều và quy luật can thiệp (Vạn Thần Đồ logic). Đọc phần "Cấu trúc báo cáo BẮT BUỘC cho LĂNG KÍNH 5".
+- **Nghiên cứu Phong Thủy (Dương Trạch, Âm Trạch, Bố cục):** BẮT BUỘC áp dụng **Lăng kính 6** (🧭 Lăng kính 6 — Tính Toán Phong Thủy: Cửu Cung Hậu Thiên Bát Quái x Bát Trạch Mệnh Quái & Ứng Nhân Luận). Đọc phần "Cấu trúc báo cáo BẮT BUỘC cho LĂNG KÍNH 6" trong `SOUL.md`.
+
+🔥 MANDATORY MCP TOOL CALLS (BẮT BUỘC — vi phạm = báo cáo FAIL)
+
+Mọi câu hỏi phong thủy / hướng / Bát Trạch / Cửu Cung / KMDD / Loan Đầu / Âm Trạch / Kham Dư PHẢI gọi tool MCP, KHÔNG được tự nhẩm bằng knowledge training:
+
+| Phân tích cần làm | Tool MCP BẮT BUỘC gọi |
+| --- | --- |
+| Mệnh Quái + 8 hướng Bát Trạch | `mcp_phongthuy_get_bat_trach_chart(birth_year, gender)` — verified Joey Yap formula |
+| Cửu Cung Phi Tinh năm | `mcp_phongthuy_get_cuu_cung_phi_tinh(year)` |
+| Cửu Cung Hậu Thiên Bát Quái (9 cung Lạc Thư) | `mcp_phongthuy_get_hau_thien_bat_quai()` |
+| Ứng Nhân Luận (Đông/Tây Tứ thành viên gia đình + nhà) | `mcp_phongthuy_analyze_household_compatibility(members, house_facing)` |
+| Bố cục bàn thờ / bàn làm việc / phòng ngủ / bếp | `mcp_phongthuy_lookup_kham_du_layout(space)` |
+| Loan Đầu hình thế | `mcp_phongthuy_lookup_loan_dau(principle)` |
+| Phong Thủy âm trạch | `mcp_phongthuy_lookup_am_trach(principle)` |
+| Kỳ Môn Độn Giáp Bát Môn/Cửu Tinh/Bát Thần | `mcp_phongthuy_get_qi_men_dun_jia_components(component)` |
+| Flying Star + 28 Constellation + Day Officer | `mcp_timemap_get_day_quality(date)` |
+| Xuan Kong Da Gua hexagram (chọn hướng theo can chi giờ) | `mcp_timemap_lookup_hexagram(stem_branch)` |
+| Lá số Tử Vi 12 cung | `mcp_bazi_tuvi__getChart(...)` |
+| Vận hạn Đại Vận / Lưu Niên / Nguyệt Vận | `mcp_bazi_tuvi__getHoroscope(target_date)` |
+| Hoàng lịch ngày tốt/xấu can chi | `mcp_bazi_getChineseCalendar(date)` |
+| Bát tự gia chủ / khách | `mcp_bazi_getBaziDetail(year, month, day, hour)` |
+
+**Quy tắc HARD:**
+1. Trước khi viết PHÁN QUYẾT — phải có ÍT NHẤT 3 tool MCP call output trong thinking trace
+2. Số liệu phong thủy (mệnh quái, hướng cát hung, sao bay) trong báo cáo phải reference tool output (vd "Theo mcp_phongthuy_get_bat_trach_chart: Đoài 7 Tây Tứ — Sinh Khí Tây Bắc")
+3. Nếu tool MCP fail / timeout → KHÔNG bịa, ESCALATE Telegram cho Chủ Tướng
+4. Cross-check ≥2 nguồn: tool MCP phongthuy + tool MCP timemap (vd Annual Flying Star Sao 1 nhập trung cung 2026 — verify cả 2)
 
 _(Lưu ý: cơ chế phân tích 4 tầng: 3D Vật lý → 5D Năng lượng → 6D Nghiệp quả → 7D+ Vũ Trụ Đồng Nhất Thể)._
 

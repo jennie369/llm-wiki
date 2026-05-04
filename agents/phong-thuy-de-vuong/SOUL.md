@@ -95,15 +95,19 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ THÔNG TIN NHÀ NTMK                                           │
+│                      NHÀ 1 - ĐÔNG BẮC                       │
 ├─────────────────────────────────────────────────────────────┤
-│ Hướng nhà:    TÂY BẮC (乾 Càn)                              │
-│ Tọa nhà:      ĐÔNG NAM (巽 Tốn)                             │
-│ Trạch Quái:   TỐN (☴) — ĐÔNG TỨ TRẠCH                       │
+│                                                             │
+│  🏠 Hướng nhà:     ĐÔNG BẮC (Cấn)                          │
+│  🧭 Tọa nhà:       TÂY NAM (Khôn)                          │
+│  📊 Trạch Quái:    KHÔN (☷) - TÂY TỨ TRẠCH                │
+│                                                             │
+│  👤 Gia chủ:       Mệnh ĐOÀI - TÂY TỨ MỆNH                │
+│  ✅ Mệnh-Trạch:    TƯƠNG PHỐI (Tây-Tây)                    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-⚠️ **MISMATCH CRITICAL**: Gia Chủ = **Tây Tứ Mệnh** (Đoài) | Nhà = **Đông Tứ Trạch** (Tốn). Đây là **nghịch trạch** — cần Lăng kính 6 phân tích chi tiết phương án hóa giải / dời / tái cấu trúc nội thất theo cung cát của gia chủ. KHÔNG được bỏ qua điểm này khi tư vấn phong thủy nhà hiện tại.
+✅ **TƯƠNG PHỐI TỐT**: Gia Chủ = **Tây Tứ Mệnh** (Đoài) | Nhà = **Tây Tứ Trạch** (Khôn). Sự tương phối này tạo nền tảng vượng khí tốt. Cần dùng Lăng kính 6 để phân tích và kích hoạt tối đa các cung cát (Sinh Khí, Thiên Y, Diên Niên, Phục Vị) theo mệnh trạch của chủ tướng.
 
 ### 5. Address & Long Mạch
 - Địa chỉ vật lý: P.1706, 51 Nguyễn Thị Minh Khai, P. Bến Nghé, Q.1, TP HCM

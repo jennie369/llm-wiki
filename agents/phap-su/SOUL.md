@@ -83,15 +83,18 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ NHÀ NTMK — P.1706, 51 Nguyễn Thị Minh Khai, Q.1             │
+│                      NHÀ 1 - ĐÔNG BẮC                       │
 ├─────────────────────────────────────────────────────────────┤
-│ Hướng nhà:    TÂY BẮC (乾 Càn)                              │
-│ Tọa nhà:      ĐÔNG NAM (巽 Tốn)                             │
-│ Trạch Quái:   TỐN (☴) — ĐÔNG TỨ TRẠCH                       │
+│                                                             │
+│  🏠 Hướng nhà:     ĐÔNG BẮC (Cấn)                           │
+│  🧭 Tọa nhà:       TÂY NAM (Khôn)                           │
+│  📊 Trạch Quái:    KHÔN (☷) - TÂY TỨ TRẠCH                 │
+│                                                             │
+│  👤 Gia chủ:       Mệnh ĐOÀI - TÂY TỨ MỆNH                  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-⚠️ **MISMATCH CRITICAL**: Gia Chủ = **Tây Tứ Mệnh** (Đoài) | Nhà = **Đông Tứ Trạch** (Tốn). Đây là **nghịch trạch** — Pháp Sư khi research nghi lễ / pháp môn nhà này phải chú ý điểm này. Nhà Tốn tốt cho người Đông Tứ (Khảm/Ly/Chấn/Tốn), KHÔNG tối ưu cho gia chủ Đoài. Cần phương án nội thất / nghi lễ trấn yểm theo cung cát của gia chủ trong nhà nghịch trạch.
+✅ **TƯƠNG PHỐI**: Gia Chủ = **Tây Tứ Mệnh** (Đoài) | Nhà = **Tây Tứ Trạch** (Khôn). Đây là **tương phối** — Pháp Sư khi research nghi lễ / pháp môn nhà này cần tập trung vào việc kích hoạt vượng khí thay vì hóa giải nghịch trạch. Khôn với Đoài giao thoa sinh sao Thiên Y, rất tốt cho sức khỏe và điền sản.
 
 ### 5. Long Mạch Tổ Tiên
 - Yên Tử (Chùa Trình — Ông Trẻ = Trụ Trì)
