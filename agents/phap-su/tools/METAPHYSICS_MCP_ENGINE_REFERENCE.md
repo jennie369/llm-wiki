@@ -68,7 +68,8 @@ Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
 | `bazi__getDaYun`           | `solarDatetime`, `gender`(0/1), `count`(=9), `targetYear`(optional)          | `八字` + `顺逆` + `起运` + `大运[]`(can chi + tuổi + năm + **`与命局关系`**) + **`流年`** (nếu có targetYear)            | `ChildLimit` + `DecadeFortune` + `appendRelation` + `SixtyCycleYear` | 🆕 2026-06-02 (+ vận hạn) |
 | `bazi__getChineseCalendar` | `solarDatetime`(optional)                                                    | Hoàng lịch: 干支, 28 tú, Bành Tổ, 5 thần phương vị, 宜/忌, 冲煞                                                  | tyme4ts LunarDay                                  | ✅                       |
 | `tuvi__getChart`           | `solarDate`(YYYY-MM-DD), `hour`(0=Tý), `gender`(0/1)                         | 12 cung + chính/phụ tinh + độ sáng + tứ hóa + **Tuần/Triệt + Mệnh/Thân Chủ chuẩn VN**                      | iztro + override VN                               | ✅                       |
-| `tuvi__getHoroscope`       | + `targetDate`                                                               | Đại hạn / Lưu niên / Lưu nguyệt + lưu sao + mutagen                                                        | iztro `.horoscope()`                              | ✅                       |
+| `tuvi__getHoroscope` | + `targetDate`, `targetHour`(optional) | Đại hạn / Lưu niên / Lưu nguyệt / **Lưu nhật** / **Lưu thời** + lưu sao + mutagen | `computeHoroscope` (lib/engine/tuvi) | ✅ +daily/hourly 2026-06-02 |
+| `tuvi__getSanFangSiZheng` 🆕 | `branch` (địa chi Hán 子..亥) | Tam Phương Tứ Chính: Bản cung + Tam hợp (2) + Đối cung (xung chiếu) | `getSanFangSiZheng` (lib/engine/tuvi) | 🆕 2026-06-02 |
 | `charts__list`             | —                                                                            | List khách đã lưu (`web-dashboard/data/charts.json`)                                                       | fs đọc JSON local                                 | ✅                       |
 
 **Chi tiết field MỚI (sau nâng cấp):**
@@ -108,14 +109,14 @@ Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
 
 > **Phân biệt cốt lõi: TÍNH (engine, deterministic) ≠ LUẬN (diễn giải ý nghĩa).** Mọi tool §3.1-3.3 chỉ **TÍNH** (trả số/can chi/sao/quan hệ). Phần LUẬN hiện ở tầng UI web, KHÔNG ở engine/MCP. Bảng dưới nói rõ mỗi surface luận ở đâu:
 
-| Surface (web Tử Vi) | Cột Luận — nguồn | Bản chất |
-|---------------------|------------------|----------|
+| Surface (web Tử Vi)                        | Cột Luận — nguồn                                                     | Bản chất                                                                                   |
+| ------------------------------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | **Bình Giải Tổng Quan** (panel cạnh lá số) | `components/tuvi/TuViSections.js` → `InterpPanel` + dict `STAR_DESC` | **Rule-based template** (điền chỗ trống: cung + chính tinh + sát tinh + tứ hóa). KHÔNG AI. |
-| Mô tả sao Đại Hạn | `components/tuvi/DaiVanTable.js` + `STAR_DESC` (SSOT) | Dictionary cứng (câu 1) |
-| Mô tả sao Vận Hạn | `components/tuvi/HoroscopeSection.js` | Template + `STAR_DESC` (SSOT) |
-| **"Phân Tích AI Tổng Quát"** | field `ai_interpretation` (DB) | **NHẬP TAY** — không auto-sinh. Rỗng = "Chưa có phân tích AI". Tên "AI" gây hiểu nhầm. |
-| Bát Tự (4 trụ, 关系, 五行, đại vận) | engine (`lib/engine/bazi.js`) | **CHỈ TÍNH — chưa có luận** (agent tự luận thủ công nếu cần) |
-| (AI Opus chat) | `app/api/ai/phong-thuy-chat` (claude-opus) | Có endpoint nhưng **CHƯA nối** vào trang Tử Vi |
+| Mô tả sao Đại Hạn                          | `components/tuvi/DaiVanTable.js` + `STAR_DESC` (SSOT)                | Dictionary cứng (câu 1)                                                                    |
+| Mô tả sao Vận Hạn                          | `components/tuvi/HoroscopeSection.js`                                | Template + `STAR_DESC` (SSOT)                                                              |
+| **"Phân Tích AI Tổng Quát"**               | field `ai_interpretation` (DB)                                       | **NHẬP TAY** — không auto-sinh. Rỗng = "Chưa có phân tích AI". Tên "AI" gây hiểu nhầm.     |
+| Bát Tự (4 trụ, 关系, 五行, đại vận)            | engine (`lib/engine/bazi.js`)                                        | **CHỈ TÍNH — chưa có luận** (agent tự luận thủ công nếu cần)                               |
+| (AI Opus chat)                             | `app/api/ai/phong-thuy-chat` (claude-opus)                           | Có endpoint nhưng **CHƯA nối** vào trang Tử Vi                                             |
 
 > **SSOT mô tả sao**: `lib/utils/tuviDict.js` → `STAR_DESC` — nay **DERIVE TỪ CSDL 114 sao** `web-dashboard/data/tu-vi-dictionary/TuVi-114-Stars-Dictionary.json` (3D/5D/6D, update dần trong app; llm-wiki `raw/Tu-vi-dictionary` = symlink về đây cho agents). Derive Chinh_Tinh_14 + Luc_Sat_Tinh = 20 sao Hán-keyed (Phu_Tinh chưa có pinyin → chưa key). Update JSON → STAR_DESC tự đổi (chống drift). Trước đó (2026-06-02) gộp từ 3 bản hardcode trùng (TuViSections local + HoroscopeSection STAR_DESC_DV dead + tuviDict). Câu 1 = loại tinh (DaiVanTable cắt `split('.')[0]`), phần sau = keywords (InterpPanel full).
 >
@@ -140,10 +141,10 @@ Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
 | | `SixtyCycle.getTen()` — tuần (旬) |
 
 ### iztro (khai thác tốt ~85%)
-| Đã dùng ✅ | CHƯA dùng |
-|-----------|-----------|
-| `astrolabeByLunarDate`, `.horoscope()` (decadal/yearly/monthly) | `horoscope` scope `daily` / `hourly` — **lưu nhật / lưu thời** |
-| palaces + stars + brightness + mutagen | 三方四正 helper (tam phương tứ chính) |
+| Đã dùng ✅                                                       | CHƯA dùng                                                      |
+| --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `.horoscope()` decadal/yearly/monthly + **daily/hourly** (Lưu nhật/Lưu thời ✅ 2026-06-02, qua `lib/engine/tuvi.computeHoroscope`) | — |
+| palaces + stars + brightness + mutagen + **三方四正** (`getSanFangSiZheng` ✅ 2026-06-02) | — |
 
 ---
 
