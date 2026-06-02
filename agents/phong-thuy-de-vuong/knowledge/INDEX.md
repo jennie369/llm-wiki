@@ -12,7 +12,7 @@ Agent PHẢI đọc files theo thứ tự Tier. Khi trả lời câu hỏi:
 | Domain | Files cần đọc | Tier |
 |--------|--------------|------|
 | Lá số / Cung / Sao / Tứ Hóa | `TỬ VI NTP\docs-tam-linh\Lá số tham lang.txt` + `TỬ VI NTP\docs-tam-linh\Luận giải lá số #1.md` + `raw\Tu-vi-dictionary\` | 1 |
-| Nguyệt vận / Dự báo tháng | **`FRAMEWORK_NGUYET_VAN_SSOT.md`** (CÔNG THỨC — SSOT) + `framework-nguyet-van-v6-complete THAM LANG.md` (diễn giải/ví dụ) + `raw\Kinh-Dich\` | 2 |
+| Nguyệt vận / Dự báo tháng | **`tools/FRAMEWORK_NGUYET_VAN_SSOT.md`** (CÔNG THỨC — SSOT, symlink → phap-su/tools) + `framework-nguyet-van-v6-complete THAM LANG.md` (diễn giải/ví dụ) + `raw\Kinh-Dich\` | 2 |
 | Cơ Sở Dữ Liệu / Framework / Nền Tảng | **BẮT BUỘC ĐỌC TẤT CẢ TỪ:** `raw\tam-linh-phong-thuy\`, `raw\gem-agent-memory\`, và `TỬ VI NTP\docs-tam-linh\` | MỞ RỘNG |
 | Binh pháp / Kẻ thù / Chiến thuật | `BINH PHÁP THỰC CHIẾN.md` + `TỬ VI NTP\docs-tam-linh\Luận giải lá số #1.md` + `raw\tinh-tuyen\` | 2+1 |
 | Thiền phái Trúc Lâm Yên tử | Cư trần lạc đạo, tư tưởng, triết lý, ứng dụng (từ `raw\research-tran-nhan-tong\`, `raw\tam-linh-phong-thuy\` và `raw\sach-tam-linh\`) | MỞ RỘNG |
@@ -37,7 +37,7 @@ Agent PHẢI đọc files theo thứ tự Tier. Khi trả lời câu hỏi:
 
 ### Tier 2 -- ENGINES & TRIẾT LÝ
 ```
-FRAMEWORK_NGUYET_VAN_SSOT.md                            (SSOT)  Công thức Nguyệt Vận — CANONICAL (đọc TRƯỚC)
+../tools/FRAMEWORK_NGUYET_VAN_SSOT.md                   (SSOT)  Công thức Nguyệt Vận — CANONICAL (symlink → phap-su/tools, đọc TRƯỚC)
 ../../../framework-nguyet-van-v6-complete THAM LANG.md  (80 KB) Nguyệt Vận V6.0 — diễn giải/ví dụ (công thức lấy theo SSOT)
 ../../../BINH PHÁP THỰC CHIẾN.md                        (28 KB) Binh pháp huyền học
 ../../../raw/research-tran-nhan-tong/                   (Mở rộng) Báo cáo Trúc Lâm Yên Tử & Trần Nhân Tông
