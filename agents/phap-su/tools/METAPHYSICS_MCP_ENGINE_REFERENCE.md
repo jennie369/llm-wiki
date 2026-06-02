@@ -22,11 +22,11 @@
 
 ## 1. Kiến trúc — 3 MCP server
 
-| Server | Command | File / Source | Engine nền | Ai dùng |
-|--------|---------|---------------|-----------|---------|
-| **bazi** | `node` | `App Phong Thủy Đế Vương/web-dashboard/scripts/bazi_wrapper.mjs` | tyme4ts, cantian-tymext, iztro | PTĐV, Pháp Sư, Buddha |
-| **phongthuy** | `python` | `crypto-pattern-scanner/scripts/phongthuy-mcp-server.py` | (Python nội bộ) | PTĐV (Pháp Sư) |
-| **timemap** | `uvx` | `timemap-mcp` (pip, github.com/cnick26/timemap-mcp, MIT) | NASA JPL DE421 ephemeris, 740+ test Joey Yap | PTĐV, Buddha, Pháp Sư |
+| Server        | Command  | File / Source                                                    | Engine nền                                   |
+| ------------- | -------- | ---------------------------------------------------------------- | -------------------------------------------- |
+| **bazi**      | `node`   | `App Phong Thủy Đế Vương/web-dashboard/scripts/bazi_wrapper.mjs` | tyme4ts, cantian-tymext, iztro               |
+| **phongthuy** | `python` | `crypto-pattern-scanner/scripts/phongthuy-mcp-server.py`         | (Python nội bộ)                              |
+| **timemap**   | `uvx`    | `timemap-mcp` (pip, github.com/cnick26/timemap-mcp, MIT)         | NASA JPL DE421 ephemeris, 740+ test Joey Yap |
 
 > Khai báo cụ thể trong `<agent>/mcp.json` (vd `llm-wiki/agents/phong-thuy-de-vuong/mcp.json`).
 > Wrapper chạy **StdIO** → agent gọi trực tiếp, KHÔNG cần Next.js server bật.
@@ -35,13 +35,13 @@
 
 ## 2. Engine layer (thư viện) — server `bazi`
 
-| Package | Version | Vai trò | Loại dep |
-|---------|---------|---------|----------|
-| **tyme4ts** | 1.4.5 | Lõi lịch + bát tự (SolarTime, LunarHour, EightChar, ChildLimit, DecadeFortune). "Bản nâng cấp của Lunar" | **trực tiếp** |
-| **cantian-tymext** | 0.0.26 | Thần Sát (`getShen`) + **quan hệ trụ** (`calculateRelation`) + sinh khắc (`getWuxingRelation`) | **trực tiếp** |
-| **iztro** | 2.5.8 | Tử Vi đẩu số 12 cung + tứ hóa + độ sáng sao + vận hạn | (import trực tiếp trong wrapper) |
-| lunar-typescript | 1.8.6 | (lịch/bát tự — qua tyme4ts) | gián tiếp |
-| lunar-lite | 0.2.8 | (chuyển đổi âm/dương) | gián tiếp |
+| Package            | Version | Vai trò                                                                                                  | Loại dep                         |
+| ------------------ | ------- | -------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| **tyme4ts**        | 1.4.5   | Lõi lịch + bát tự (SolarTime, LunarHour, EightChar, ChildLimit, DecadeFortune). "Bản nâng cấp của Lunar" | **trực tiếp**                    |
+| **cantian-tymext** | 0.0.26  | Thần Sát (`getShen`) + **quan hệ trụ** (`calculateRelation`) + sinh khắc (`getWuxingRelation`)           | **trực tiếp**                    |
+| **iztro**          | 2.5.8   | Tử Vi đẩu số 12 cung + tứ hóa + độ sáng sao + vận hạn                                                    | (import trực tiếp trong wrapper) |
+| lunar-typescript   | 1.8.6   | (lịch/bát tự — qua tyme4ts)                                                                              | gián tiếp                        |
+| lunar-lite         | 0.2.8   | (chuyển đổi âm/dương)                                                                                    | gián tiếp                        |
 
 > Engine = thư viện npm (read-only, KHÔNG sửa — mất khi `pnpm install`). Logic chị sở hữu = **`bazi_wrapper.mjs`**.
 > Clone máy mới: `cd web-dashboard && pnpm install` (có `pnpm-lock.yaml`).
@@ -56,7 +56,7 @@
 | -------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------------------- |
 | `bazi__getBaziDetail`      | `solarDatetime`\|`lunarDatetime`, `gender`(0/1), `eightCharProviderSect`(=2) | 4 trụ + Thập Thần + Nạp âm + Tinh vận + Thai nguyên/Mệnh cung/Thân cung + **`神煞`** + **`关系`** + **`五行统计`** | tyme4ts + `getShen` + `calculateRelation` + tally | ✅ + nâng cấp 2026-06-02 |
 | `bazi__getSolarTimes`      | `bazi` (vd `"乙卯 己丑 甲戌 己巳"`)                                                  | mảng ngày dương khả dĩ 1900-2050                                                                           | `EightChar.getSolarTimes`                         | ✅                       |
-| `bazi__getDaYun`           | `solarDatetime`, `gender`(0/1), `count`(=9)                                  | `顺逆` + `起运提示` + `起运时间` + `大运[]`(can chi + tuổi + năm)                                                      | `ChildLimit` + `DecadeFortune`                    | 🆕 2026-06-02           |
+| `bazi__getDaYun`           | `solarDatetime`, `gender`(0/1), `count`(=9), `targetYear`(optional)          | `八字` + `顺逆` + `起运` + `大运[]`(can chi + tuổi + năm + **`与命局关系`**) + **`流年`** (nếu có targetYear)            | `ChildLimit` + `DecadeFortune` + `appendRelation` + `SixtyCycleYear` | 🆕 2026-06-02 (+ vận hạn) |
 | `bazi__getChineseCalendar` | `solarDatetime`(optional)                                                    | Hoàng lịch: 干支, 28 tú, Bành Tổ, 5 thần phương vị, 宜/忌, 冲煞                                                  | tyme4ts LunarDay                                  | ✅                       |
 | `tuvi__getChart`           | `solarDate`(YYYY-MM-DD), `hour`(0=Tý), `gender`(0/1)                         | 12 cung + chính/phụ tinh + độ sáng + tứ hóa + **Tuần/Triệt + Mệnh/Thân Chủ chuẩn VN**                      | iztro + override VN                               | ✅                       |
 | `tuvi__getHoroscope`       | + `targetDate`                                                               | Đại hạn / Lưu niên / Lưu nguyệt + lưu sao + mutagen                                                        | iztro `.horoscope()`                              | ✅                       |
@@ -68,28 +68,28 @@
 
 ### 3.2 Server `phongthuy` (Python) — 8 tool
 
-| Tool | Dùng khi |
-|------|----------|
-| `get_bat_trach_chart` | Mệnh Quái + 8 hướng tốt/xấu (Đông/Tây Tứ Mệnh) |
-| `get_cuu_cung_phi_tinh` | Cửu cung phi tinh (Huyền Không) |
-| `get_hau_thien_bat_quai` | Hậu thiên Bát Quái |
-| `get_qi_men_dun_jia_components` | Kỳ Môn Độn Giáp |
-| `analyze_household_compatibility` | Hợp tuổi cả nhà |
-| `lookup_am_trach` | Âm trạch (mộ phần) |
-| `lookup_kham_du_layout` | Khám dư (bố cục) |
-| `lookup_loan_dau` | Loan đầu (hình thế) |
+| Tool                              | Dùng khi                                       |
+| --------------------------------- | ---------------------------------------------- |
+| `get_bat_trach_chart`             | Mệnh Quái + 8 hướng tốt/xấu (Đông/Tây Tứ Mệnh) |
+| `get_cuu_cung_phi_tinh`           | Cửu cung phi tinh (Huyền Không)                |
+| `get_hau_thien_bat_quai`          | Hậu thiên Bát Quái                             |
+| `get_qi_men_dun_jia_components`   | Kỳ Môn Độn Giáp                                |
+| `analyze_household_compatibility` | Hợp tuổi cả nhà                                |
+| `lookup_am_trach`                 | Âm trạch (mộ phần)                             |
+| `lookup_kham_du_layout`           | Khám dư (bố cục)                               |
+| `lookup_loan_dau`                 | Loan đầu (hình thế)                            |
 
 ### 3.3 Server `timemap` (uvx) — 8 tool
 
-| Tool | Dùng khi |
-|------|----------|
-| `get_solar_term` | 24 tiết khí chính xác theo năm (DE421) |
-| `get_daily_pillars` / `get_hourly_pillars` | Trụ ngày / trụ giờ |
-| `get_day_quality` | Day Officer + 28 tú (chọn ngày) |
-| `get_daily_interactions` | Tương tác can chi trong ngày |
-| `get_luck_pillars` | Đại vận (engine timemap) |
-| `get_natal_chart` | BaZi 4 trụ |
-| `lookup_hexagram` | Quẻ Kinh Dịch |
+| Tool                                       | Dùng khi                               |
+| ------------------------------------------ | -------------------------------------- |
+| `get_solar_term`                           | 24 tiết khí chính xác theo năm (DE421) |
+| `get_daily_pillars` / `get_hourly_pillars` | Trụ ngày / trụ giờ                     |
+| `get_day_quality`                          | Day Officer + 28 tú (chọn ngày)        |
+| `get_daily_interactions`                   | Tương tác can chi trong ngày           |
+| `get_luck_pillars`                         | Đại vận (engine timemap)               |
+| `get_natal_chart`                          | BaZi 4 trụ                             |
+| `lookup_hexagram`                          | Quẻ Kinh Dịch                          |
 
 > ⚠️ **Trùng lặp có chủ đích:** cả `bazi` và `timemap` đều tính được 4 trụ + đại vận. `bazi` (tyme4ts) = output tiếng Trung chi tiết + Việt hóa Tử Vi; `timemap` = verify chéo Joey Yap + tiết khí DE421. Dùng `bazi` làm chính, `timemap` để đối chiếu.
 
@@ -98,12 +98,11 @@
 ## 4. Coverage map — đã dùng vs CHƯA dùng (audit 2026-06-02)
 
 ### cantian-tymext (28 hàm export)
-| Đã dùng ✅ | CHƯA dùng (tiềm năng nâng cấp) |
-|-----------|-------------------------------|
-| `getShen` (thần sát 4 trụ) | `getShenFromDayun` / `getShenFromSizhu` — thần sát theo **Đại Vận** (gắn vào `getDaYun`) |
-| `calculateRelation` (quan hệ — MỚI dùng) | `baziToMarkdown` / `getChineseCalendarMarkdown` — output markdown sẵn |
-| | `buildBaziFromLunar` / `buildBaziFromSolar` — builder thay thế |
-| | `appendRelation` — quan hệ khi thêm trụ lưu niên/lưu nguyệt vào |
+| Đã dùng ✅                                | CHƯA dùng (tiềm năng nâng cấp)                                                           |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `getShen` (thần sát 4 trụ)               | `getShenFromDayun` / `getShenFromSizhu` — thần sát theo **Đại Vận** (gắn vào `getDaYun`) |
+| `calculateRelation` (quan hệ 4 trụ gốc)  | `baziToMarkdown` / `getChineseCalendarMarkdown` — output markdown sẵn                    |
+| `appendRelation` ✅ MỚI (đại vận/lưu niên vs mệnh gốc — trong `getDaYun`) | `buildBaziFromLunar` / `buildBaziFromSolar` — builder thay thế |
 
 ### tyme4ts
 | Đã dùng ✅ | CHƯA dùng |
@@ -124,9 +123,11 @@
 
 1. **Tuần Không bát tự** → thêm `空亡` vào mỗi trụ trong `getBaziDetail` qua `SixtyCycle.getExtraEarthBranches()` (native, đang tự tính tay cho Tử Vi). _Nhỏ, giá trị cao._
 2. **Thần sát theo Đại Vận** → trong `getDaYun`, mỗi trụ đại vận gắn `getShenFromDayun`.
-3. **Lưu niên trong đại vận** → `getDaYun` thêm `Fortune` (vận từng năm trong 1 đại vận 10 năm).
+3. **Liệt kê 10 lưu niên trong 1 đại vận** → `getDaYun` dùng `Fortune` để xổ can chi từng năm (hiện đã có luận lưu niên đơn lẻ qua `targetYear` + `appendRelation`).
 4. **Lưu nhật / lưu thời Tử Vi** → `getHoroscope` mở `daily`/`hourly` scope.
 5. **Đồng nhất phái khởi vận** → cân nhắc `LunarSect2ChildLimitProvider` cho `getDaYun` để khớp phái Sect2 của bát tự (hiện dùng default).
+
+✅ **Đã làm 2026-06-02:** wire `appendRelation` vào `getDaYun` (mỗi đại vận + lưu niên kèm quan hệ xung/hợp/hình/hại/phá với tứ trụ gốc) + input `targetYear` luận Lưu Niên.
 
 ---
 
@@ -163,8 +164,9 @@
 
 ## 8. Changelog
 
-| Ngày | Thay đổi |
-|------|----------|
-| 2026-06-02 | Audit toàn bộ. Xóa import chết `calculateRelation` (→ dùng thật). `getBaziDetail` +`关系`+`五行统计`. Tool mới `bazi__getDaYun`. Fix `getStartTime`→`getEndTime`. Xóa `tu-vi-engine.md` (theo lệnh — LƯU Ý: phần "Mệnh Tham Lang Tuất" của doc đó thực ra ĐÚNG với giờ Mão; audit ban đầu đối chiếu nhầm bằng giờ Tỵ). |
-| 2026-06-02 (sửa) | Sửa lá số verify: giờ thật = **Mão** (Mệnh Tham Lang Tuất), KHÔNG phải Tỵ (Mệnh Vũ Tướng) như giả định sai trước đó. |
-| (trước) | Wrapper v4.0.0: 6 tool, Việt hóa Tử Vi (Mệnh/Thân Chủ + Tuần/Triệt) |
+| Ngày             | Thay đổi                                                                                                                                                                                                                                                                                                         |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-02       | Audit toàn bộ. Xóa import chết `calculateRelation` (→ dùng thật). `getBaziDetail` +`关系`+`五行统计`. Tool mới `bazi__getDaYun`. Fix `getStartTime`→`getEndTime`. Xóa `tu-vi-engine.md` (theo lệnh — LƯU Ý: phần "Mệnh Tham Lang Tuất" của doc đó thực ra ĐÚNG với giờ Mão; audit ban đầu đối chiếu nhầm bằng giờ Tỵ). |
+| 2026-06-02 (sửa) | Sửa lá số verify: giờ thật = **Mão** (Mệnh Tham Lang Tuất), KHÔNG phải Tỵ (Mệnh Vũ Tướng) như giả định sai trước đó.                                                                                                                                                                                             |
+| 2026-06-02 (+vận hạn) | Wire `appendRelation` vào `getDaYun`: mỗi đại vận + lưu niên kèm `与命局关系` (xung/hợp/hình/hại/phá với tứ trụ gốc). Thêm input `targetYear` → block `流年` luận Lưu Niên. Biến getDaYun từ "liệt kê" thành "luận vận hạn". |
+| (trước)          | Wrapper v4.0.0: 6 tool, Việt hóa Tử Vi (Mệnh/Thân Chủ + Tuần/Triệt)                                                                                                                                                                                                                                              |

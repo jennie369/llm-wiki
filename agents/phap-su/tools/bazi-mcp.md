@@ -25,8 +25,8 @@ Tất cả các API Route phức tạp của Web Dashboard (`tuvi`, `bazi`, `hor
   - `关系` — **Hình-Xung-Phá-Hại-Hợp** + tam hợp/tam hội/củng/song xung/song hợp giữa 4 trụ (qua `calculateRelation`).
   - `五行统计` — đếm cân bằng ngũ hành (4 thiên can + tàng can) → cơ sở luận **Dụng Thần**.
 - **Tool:** `bazi__getSolarTimes` (Tìm lịch dương theo bát tự).
-- **Tool:** `bazi__getDaYun` 🆕 — **Đại Vận Bát Tự**: thuận/nghịch hành, thời điểm khởi vận, chuỗi N trụ đại vận (10 năm/trụ) kèm can chi + khoảng tuổi.
-  - **Input:** `solarDatetime` (ISO), `gender` (0 nữ, 1 nam), `count` (số đại vận, mặc định 9).
+- **Tool:** `bazi__getDaYun` 🆕 — **Đại Vận Bát Tự + Luận Vận Hạn**: thuận/nghịch, thời điểm khởi vận, chuỗi N trụ đại vận (10 năm/trụ) — **mỗi trụ kèm `与命局关系`** (xung/hợp/hình/hại/phá với tứ trụ gốc, qua `appendRelation`). Truyền `targetYear` → thêm block **`流年`** luận Lưu Niên năm đó (can chi + đại vận chứa nó + quan hệ với mệnh gốc).
+  - **Input:** `solarDatetime` (ISO), `gender` (0 nữ, 1 nam), `count` (số đại vận, mặc định 9), `targetYear` (năm dương muốn luận lưu niên — optional).
 - **Tool:** `bazi__getChineseCalendar` (Khởi quẻ ngày tốt xấu Hoàng Lịch, nạp âm, việc Nên/Tránh, tuổi xung).
 - **Phân tích:** Dành để xem nạp âm ngũ hành, dụng thần bát tự, quan hệ trụ, vận hạn 10 năm hoặc chọn ngày giờ.
 
