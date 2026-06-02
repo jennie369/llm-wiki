@@ -104,6 +104,25 @@ Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
 
 ---
 
+## 3.5 LUẬN (interpretation) — nguồn ở đâu (audit 2026-06-02)
+
+> **Phân biệt cốt lõi: TÍNH (engine, deterministic) ≠ LUẬN (diễn giải ý nghĩa).** Mọi tool §3.1-3.3 chỉ **TÍNH** (trả số/can chi/sao/quan hệ). Phần LUẬN hiện ở tầng UI web, KHÔNG ở engine/MCP. Bảng dưới nói rõ mỗi surface luận ở đâu:
+
+| Surface (web Tử Vi) | Cột Luận — nguồn | Bản chất |
+|---------------------|------------------|----------|
+| **Bình Giải Tổng Quan** (panel cạnh lá số) | `components/tuvi/TuViSections.js` → `InterpPanel` + dict `STAR_DESC` | **Rule-based template** (điền chỗ trống: cung + chính tinh + sát tinh + tứ hóa). KHÔNG AI. |
+| Mô tả sao Đại Hạn | `components/tuvi/DaiVanTable.js` + `STAR_DESC` (SSOT) | Dictionary cứng (câu 1) |
+| Mô tả sao Vận Hạn | `components/tuvi/HoroscopeSection.js` | Template + `STAR_DESC` (SSOT) |
+| **"Phân Tích AI Tổng Quát"** | field `ai_interpretation` (DB) | **NHẬP TAY** — không auto-sinh. Rỗng = "Chưa có phân tích AI". Tên "AI" gây hiểu nhầm. |
+| Bát Tự (4 trụ, 关系, 五行, đại vận) | engine (`lib/engine/bazi.js`) | **CHỈ TÍNH — chưa có luận** (agent tự luận thủ công nếu cần) |
+| (AI Opus chat) | `app/api/ai/phong-thuy-chat` (claude-opus) | Có endpoint nhưng **CHƯA nối** vào trang Tử Vi |
+
+> **SSOT mô tả sao**: `lib/utils/tuviDict.js` → `STAR_DESC` (14 chính tinh). Gộp 2026-06-02 từ 3 bản trùng (TuViSections local + HoroscopeSection STAR_DESC_DV dead + tuviDict). Câu 1 = loại tinh + đặc tính (DaiVanTable cắt `split('.')[0]`), câu 2 = cá tính (InterpPanel full).
+>
+> **Tóm lại**: Tử Vi web hiện luận bằng **template + từ điển cứng**, KHÔNG phải AI. Muốn luận AI → nối `phong-thuy-chat` (Opus) sinh `ai_interpretation`.
+
+---
+
 ## 4. Coverage map — đã dùng vs CHƯA dùng (audit 2026-06-02)
 
 ### cantian-tymext (28 hàm export)
