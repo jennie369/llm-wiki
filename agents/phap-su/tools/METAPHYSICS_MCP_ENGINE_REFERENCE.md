@@ -52,15 +52,15 @@
 
 ### 3.1 Server `bazi` — `bazi_wrapper.mjs` (7 tool)
 
-| Tool | Input | Output (field chính) | Engine call | Status |
-|------|-------|----------------------|-------------|--------|
-| `bazi__getBaziDetail` | `solarDatetime`\|`lunarDatetime`, `gender`(0/1), `eightCharProviderSect`(=2) | 4 trụ + Thập Thần + Nạp âm + Tinh vận + Thai nguyên/Mệnh cung/Thân cung + **`神煞`** + **`关系`** + **`五行统计`** | tyme4ts + `getShen` + `calculateRelation` + tally | ✅ + nâng cấp 2026-06-02 |
-| `bazi__getSolarTimes` | `bazi` (vd `"乙卯 己丑 甲戌 己巳"`) | mảng ngày dương khả dĩ 1900-2050 | `EightChar.getSolarTimes` | ✅ |
-| `bazi__getDaYun` | `solarDatetime`, `gender`(0/1), `count`(=9) | `顺逆` + `起运提示` + `起运时间` + `大运[]`(can chi + tuổi + năm) | `ChildLimit` + `DecadeFortune` | 🆕 2026-06-02 |
-| `bazi__getChineseCalendar` | `solarDatetime`(optional) | Hoàng lịch: 干支, 28 tú, Bành Tổ, 5 thần phương vị, 宜/忌, 冲煞 | tyme4ts LunarDay | ✅ |
-| `tuvi__getChart` | `solarDate`(YYYY-MM-DD), `hour`(0=Tý), `gender`(0/1) | 12 cung + chính/phụ tinh + độ sáng + tứ hóa + **Tuần/Triệt + Mệnh/Thân Chủ chuẩn VN** | iztro + override VN | ✅ |
-| `tuvi__getHoroscope` | + `targetDate` | Đại hạn / Lưu niên / Lưu nguyệt + lưu sao + mutagen | iztro `.horoscope()` | ✅ |
-| `charts__list` | — | List khách đã lưu (`web-dashboard/data/charts.json`) | fs đọc JSON local | ✅ |
+| Tool                       | Input                                                                        | Output (field chính)                                                                                       | Engine call                                       | Status                  |
+| -------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------------------- |
+| `bazi__getBaziDetail`      | `solarDatetime`\|`lunarDatetime`, `gender`(0/1), `eightCharProviderSect`(=2) | 4 trụ + Thập Thần + Nạp âm + Tinh vận + Thai nguyên/Mệnh cung/Thân cung + **`神煞`** + **`关系`** + **`五行统计`** | tyme4ts + `getShen` + `calculateRelation` + tally | ✅ + nâng cấp 2026-06-02 |
+| `bazi__getSolarTimes`      | `bazi` (vd `"乙卯 己丑 甲戌 己巳"`)                                                  | mảng ngày dương khả dĩ 1900-2050                                                                           | `EightChar.getSolarTimes`                         | ✅                       |
+| `bazi__getDaYun`           | `solarDatetime`, `gender`(0/1), `count`(=9)                                  | `顺逆` + `起运提示` + `起运时间` + `大运[]`(can chi + tuổi + năm)                                                      | `ChildLimit` + `DecadeFortune`                    | 🆕 2026-06-02           |
+| `bazi__getChineseCalendar` | `solarDatetime`(optional)                                                    | Hoàng lịch: 干支, 28 tú, Bành Tổ, 5 thần phương vị, 宜/忌, 冲煞                                                  | tyme4ts LunarDay                                  | ✅                       |
+| `tuvi__getChart`           | `solarDate`(YYYY-MM-DD), `hour`(0=Tý), `gender`(0/1)                         | 12 cung + chính/phụ tinh + độ sáng + tứ hóa + **Tuần/Triệt + Mệnh/Thân Chủ chuẩn VN**                      | iztro + override VN                               | ✅                       |
+| `tuvi__getHoroscope`       | + `targetDate`                                                               | Đại hạn / Lưu niên / Lưu nguyệt + lưu sao + mutagen                                                        | iztro `.horoscope()`                              | ✅                       |
+| `charts__list`             | —                                                                            | List khách đã lưu (`web-dashboard/data/charts.json`)                                                       | fs đọc JSON local                                 | ✅                       |
 
 **Chi tiết field MỚI (sau nâng cấp):**
 - **`关系`** = `calculateRelation(zhuArray)` → mỗi trụ trả `{天干:{冲,合}, 地支:{冲,害,破,暗合,合,刑,三合,三会,三刑,半合}}` + `拱`/`双合`/`双冲`/`伏吟`. **Đây là toàn bộ Hình-Xung-Phá-Hại-Hợp.**
@@ -132,16 +132,16 @@
 
 ## 6. Gotchas / Hard rules (ĐỌC TRƯỚC KHI SỬA)
 
-| # | Rule | Lý do |
-|---|------|-------|
-| 1 | **Timezone ép `Asia/Ho_Chi_Minh`** trước khi `SolarTime.fromYmdHms` (dòng ~59, 114, getDaYun) | Server có thể chạy UTC → lệch trụ giờ. Tool mới PHẢI tái dùng pattern `toLocaleString('en-US',{timeZone})` |
-| 2 | **`ChildLimit.getEndTime()` = giờ khởi vận**, KHÔNG phải `getStartTime()` (=giờ sinh) | `ChildLimit` là giai đoạn TỪ sinh (start) ĐẾN khởi vận (end). Đã từng nhầm — test bắt được 2026-06-02 |
-| 3 | **`calculateRelation` là aggregator** — 1 call bao trọn xung/hợp/hình/hại/phá/tam hợp/tam hội/củng | KHÔNG cần gọi tay từng `checkZhiXing/checkSanxing...` |
-| 4 | **`getWuxingRelation` từng cặp ≈ trùng Thập Thần** | Dùng `五行统计` (đếm cân bằng) cho sinh khắc, không pairwise |
-| 5 | **Tử Vi: Mệnh/Thân Chủ + Tuần/Triệt override chuẩn VN** (dòng 154-217) | iztro tính theo phái Đài Loan; bảng `MENH_CHU`/`THAN_CHU` + `trietMap` Việt hóa. KHÔNG xóa |
-| 6 | **`eightCharProviderSect=2`** (晚子时) mặc định | Khách sinh 23h-24h sẽ khác phái 1. Có chủ đích |
-| 7 | **Restart MCP để áp code mới** | Wrapper là process stdio dài hạn, KHÔNG hot-reload. Sửa xong phải restart server `bazi` (session mới / kill process) |
-| 8 | **KHÔNG đóng băng số liệu phụ thuộc lá số vào doc** | File `tu-vi-engine.md` cũ ghi cứng tứ hóa Đại Vận → sai khi đổi giờ sinh → đã XÓA 2026-06-02. Tứ hóa Đại Vận luôn gọi `getHoroscope` live |
+| #   | Rule                                                                                               | Lý do                                                                                                                                     |
+| --- | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Timezone ép `Asia/Ho_Chi_Minh`** trước khi `SolarTime.fromYmdHms` (dòng ~59, 114, getDaYun)      | Server có thể chạy UTC → lệch trụ giờ. Tool mới PHẢI tái dùng pattern `toLocaleString('en-US',{timeZone})`                                |
+| 2   | **`ChildLimit.getEndTime()` = giờ khởi vận**, KHÔNG phải `getStartTime()` (=giờ sinh)              | `ChildLimit` là giai đoạn TỪ sinh (start) ĐẾN khởi vận (end). Đã từng nhầm — test bắt được 2026-06-02                                     |
+| 3   | **`calculateRelation` là aggregator** — 1 call bao trọn xung/hợp/hình/hại/phá/tam hợp/tam hội/củng | KHÔNG cần gọi tay từng `checkZhiXing/checkSanxing...`                                                                                     |
+| 4   | **`getWuxingRelation` từng cặp ≈ trùng Thập Thần**                                                 | Dùng `五行统计` (đếm cân bằng) cho sinh khắc, không pairwise                                                                                  |
+| 5   | **Tử Vi: Mệnh/Thân Chủ + Tuần/Triệt override chuẩn VN** (dòng 154-217)                             | iztro tính theo phái Đài Loan; bảng `MENH_CHU`/`THAN_CHU` + `trietMap` Việt hóa. KHÔNG xóa                                                |
+| 6   | **`eightCharProviderSect=2`** (晚子时) mặc định                                                       | Khách sinh 23h-24h sẽ khác phái 1. Có chủ đích                                                                                            |
+| 7   | **Restart MCP để áp code mới**                                                                     | Wrapper là process stdio dài hạn, KHÔNG hot-reload. Sửa xong phải restart server `bazi` (session mới / kill process)                      |
+| 8   | **KHÔNG đóng băng số liệu phụ thuộc lá số vào doc**                                                | File `tu-vi-engine.md` cũ ghi cứng tứ hóa Đại Vận → sai khi đổi giờ sinh → đã XÓA 2026-06-02. Tứ hóa Đại Vận luôn gọi `getHoroscope` live |
 
 ---
 
@@ -149,11 +149,13 @@
 
 ```js
 // Chạy trong web-dashboard/ (node_modules resolve được)
-// Lá số chuẩn để đối chiếu: 1976-01-23 10:00 (giờ Tỵ), nam
-//   Bát tự: 乙卯 己丑 甲戌 己巳   |  Tử Vi: Mệnh Vũ Khúc+Thiên Tướng (申), Thân Tham Lang (午)
+// Lá số chuẩn để đối chiếu (Chủ Tướng): 1976-01-23, GIỜ MÃO (卯, 05:00-07:00), nam
+//   Âm lịch: 23/12/1975  |  Bát tự: 乙卯 己丑 甲戌 丁卯
+//   Tử Vi: Mệnh Tham Lang (戌/Tuất), Thân cư Vũ Khúc (辰/Thìn)
+//   ⚠️ KHÔNG dùng giờ Tỵ/10:00 — đó là giả định sai cũ (cho ra Mệnh Vũ Tướng, lệch lá số)
 ```
-1. **Round-trip:** `getBaziDetail` → lấy `八字` → `getSolarTimes` phải ra lại `1976-1-23 10:00`.
-2. **Quan hệ:** `关系` phải có `卯-戌 hợp Hỏa` + `丑-戌 Hình`.
+1. **Round-trip:** `getBaziDetail` (giờ Mão) → lấy `八字` → `getSolarTimes` phải ra lại `1976-1-23` trong khung 05:00-07:00.
+2. **Quan hệ:** `关系` phải có `卯-戌 hợp Hỏa` + `丑-戌 Hình` (giờ Mão có 2 trụ 卯 = năm + giờ).
 3. **Đại Vận:** `getDaYun` nam Ất Mão → `顺逆 = 逆行`, chuỗi `戊子→丁亥→丙戌...` (lùi từ trụ tháng 己丑).
 4. **node --check** chỉ chứng cú pháp — PHẢI chạy logic thật để chứng nghĩa.
 
@@ -163,5 +165,6 @@
 
 | Ngày | Thay đổi |
 |------|----------|
-| 2026-06-02 | Audit toàn bộ. Xóa import chết `calculateRelation` (→ dùng thật). `getBaziDetail` +`关系`+`五行统计`. Tool mới `bazi__getDaYun`. Xóa `tu-vi-engine.md` (tính sai). Fix `getStartTime`→`getEndTime`. |
+| 2026-06-02 | Audit toàn bộ. Xóa import chết `calculateRelation` (→ dùng thật). `getBaziDetail` +`关系`+`五行统计`. Tool mới `bazi__getDaYun`. Fix `getStartTime`→`getEndTime`. Xóa `tu-vi-engine.md` (theo lệnh — LƯU Ý: phần "Mệnh Tham Lang Tuất" của doc đó thực ra ĐÚNG với giờ Mão; audit ban đầu đối chiếu nhầm bằng giờ Tỵ). |
+| 2026-06-02 (sửa) | Sửa lá số verify: giờ thật = **Mão** (Mệnh Tham Lang Tuất), KHÔNG phải Tỵ (Mệnh Vũ Tướng) như giả định sai trước đó. |
 | (trước) | Wrapper v4.0.0: 6 tool, Việt hóa Tử Vi (Mệnh/Thân Chủ + Tuần/Triệt) |
