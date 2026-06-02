@@ -90,7 +90,7 @@ Không chỉ gói gọn trong file tử vi. Phải truy xuất thông tin từ T
 | `tuvi__getHoroscope` | Xuất Vận Hạn (Đại vận, Lưu niên, Tiểu Hạn, Nguyệt Vận) theo Target Date |
 | `charts__list` | Phân xuất danh sách khách hàng đang có lá số trên DB |
 
-Full guide: `tools/bazi-mcp.md` và `tools/tu-vi-engine.md`
+Full guide: `tools/bazi-mcp.md`
 
 ---
 
