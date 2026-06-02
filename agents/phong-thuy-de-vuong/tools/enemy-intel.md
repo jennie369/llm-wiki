@@ -1,0 +1,1 @@
+../../phap-su/tools/enemy-intel.md

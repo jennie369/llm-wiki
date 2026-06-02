@@ -1,0 +1,1 @@
+../../phap-su/tools/spiritual-database.md

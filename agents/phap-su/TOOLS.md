@@ -66,7 +66,8 @@ LUÔN dùng MCP, KHÔNG tự tính âm dương lịch hay can chi nhẩm đoán.
 
 | Tool | Dùng khi |
 |---|---|
-| `bazi__getBaziDetail` | Tính bát tự ngày giờ sinh (Thập thần, Thần Sát) — cho Chủ Tướng hoặc đối tượng research |
+| `bazi__getBaziDetail` | Tính bát tự ngày giờ sinh (Thập thần, Thần Sát + `关系` Hình-Xung-Hợp + `五行统计` dụng thần) — cho Chủ Tướng hoặc đối tượng research |
+| `bazi__getDaYun` 🆕 | Đại Vận bát tự: thuận/nghịch + thời điểm khởi vận + chuỗi 10 năm/trụ |
 | `bazi__getChineseCalendar` | Hoàng lịch ngày tốt/xấu, việc kiêng kỵ, thần sát theo ngày |
 | `bazi__getSolarTimes` | Quy đổi bát tự ↔ dương lịch |
 | `tuvi__getChart` | Lập lá số 12 cung (chia sẻ với PTĐV) |
