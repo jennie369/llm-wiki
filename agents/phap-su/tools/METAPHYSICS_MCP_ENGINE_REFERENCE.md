@@ -117,7 +117,7 @@ Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
 | Bát Tự (4 trụ, 关系, 五行, đại vận) | engine (`lib/engine/bazi.js`) | **CHỈ TÍNH — chưa có luận** (agent tự luận thủ công nếu cần) |
 | (AI Opus chat) | `app/api/ai/phong-thuy-chat` (claude-opus) | Có endpoint nhưng **CHƯA nối** vào trang Tử Vi |
 
-> **SSOT mô tả sao**: `lib/utils/tuviDict.js` → `STAR_DESC` (14 chính tinh). Gộp 2026-06-02 từ 3 bản trùng (TuViSections local + HoroscopeSection STAR_DESC_DV dead + tuviDict). Câu 1 = loại tinh + đặc tính (DaiVanTable cắt `split('.')[0]`), câu 2 = cá tính (InterpPanel full).
+> **SSOT mô tả sao**: `lib/utils/tuviDict.js` → `STAR_DESC` — nay **DERIVE TỪ CSDL 114 sao** `web-dashboard/data/tu-vi-dictionary/TuVi-114-Stars-Dictionary.json` (3D/5D/6D, update dần trong app; llm-wiki `raw/Tu-vi-dictionary` = symlink về đây cho agents). Derive Chinh_Tinh_14 + Luc_Sat_Tinh = 20 sao Hán-keyed (Phu_Tinh chưa có pinyin → chưa key). Update JSON → STAR_DESC tự đổi (chống drift). Trước đó (2026-06-02) gộp từ 3 bản hardcode trùng (TuViSections local + HoroscopeSection STAR_DESC_DV dead + tuviDict). Câu 1 = loại tinh (DaiVanTable cắt `split('.')[0]`), phần sau = keywords (InterpPanel full).
 >
 > **Tóm lại**: Tử Vi web hiện luận bằng **template + từ điển cứng**, KHÔNG phải AI. Muốn luận AI → nối `phong-thuy-chat` (Opus) sinh `ai_interpretation`.
 
