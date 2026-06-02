@@ -31,6 +31,15 @@
 > Khai báo cụ thể trong `<agent>/mcp.json` (vd `llm-wiki/agents/phong-thuy-de-vuong/mcp.json`).
 > Wrapper chạy **StdIO** → agent gọi trực tiếp, KHÔNG cần Next.js server bật.
 
+### ⚙️ SSOT engine bát tự (2026-06-02) — chống drift agent ↔ web
+
+Logic bát tự (computeBaziDetail + computeDaYun) nằm DUY NHẤT ở **`web-dashboard/lib/engine/bazi.js`**.
+Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
+- **MCP wrapper** (`scripts/bazi_wrapper.mjs`) — cho agent (Pháp Sư/PTĐV/Buddha).
+- **Web API routes** — cho trang Tử Vi: `app/api/bazi` (getBaziDetail) + `app/api/dayun` (getDaYun). Trang `app/tu-vi/[id]` render qua `BaziSectionFull` (quan hệ + ngũ hành) + `BatTuDaiVanTable` (đại vận + lưu niên).
+
+> ⚠️ Trước đây web có engine copy riêng (drift): `api/bazi` thiếu 关系/五行统计, không có đại vận. Đã gộp về SSOT 2026-06-02.
+
 ---
 
 ## 2. Engine layer (thư viện) — server `bazi`
@@ -169,4 +178,5 @@
 | 2026-06-02       | Audit toàn bộ. Xóa import chết `calculateRelation` (→ dùng thật). `getBaziDetail` +`关系`+`五行统计`. Tool mới `bazi__getDaYun`. Fix `getStartTime`→`getEndTime`. Xóa `tu-vi-engine.md` (theo lệnh — LƯU Ý: phần "Mệnh Tham Lang Tuất" của doc đó thực ra ĐÚNG với giờ Mão; audit ban đầu đối chiếu nhầm bằng giờ Tỵ). |
 | 2026-06-02 (sửa) | Sửa lá số verify: giờ thật = **Mão** (Mệnh Tham Lang Tuất), KHÔNG phải Tỵ (Mệnh Vũ Tướng) như giả định sai trước đó.                                                                                                                                                                                             |
 | 2026-06-02 (+vận hạn) | Wire `appendRelation` vào `getDaYun`: mỗi đại vận + lưu niên kèm `与命局关系` (xung/hợp/hình/hại/phá với tứ trụ gốc). Thêm input `targetYear` → block `流年` luận Lưu Niên. Biến getDaYun từ "liệt kê" thành "luận vận hạn". |
+| 2026-06-02 (web SSOT) | Tách `web-dashboard/lib/engine/bazi.js` SSOT (computeBaziDetail + computeDaYun). Wrapper + `api/bazi` + `api/dayun` (mới) cùng import. Web trang Tử Vi hiển thị 关系 + 五行 (BaziSectionFull) + Đại Vận Bát Tự (BatTuDaiVanTable). Hết drift agent↔web. Build xanh. |
 | (trước)          | Wrapper v4.0.0: 6 tool, Việt hóa Tử Vi (Mệnh/Thân Chủ + Tuần/Triệt)                                                                                                                                                                                                                                              |
