@@ -39,6 +39,37 @@ Tất cả các API Route phức tạp của Web Dashboard (`tuvi`, `bazi`, `hor
 - **Tool:** `charts__list`
 - Lấy toàn bộ danh sách khách hàng đang được nạp vào DB json cục bộ của Dashboard để cross-check lá số.
 
+---
+
+## Server `taibu` 🆕 (2026-06-02) — 15 tool đa hệ huyền học (engine taibu, MIT)
+
+> **Bản chất:** MCP server thứ 4 (`taibu`), vendored tại `App Phong Thủy Đế Vương/web-dashboard/vendor/taibu` (chạy `node .../packages/mcp/dist/index.js`). Engine bên ngoài (太卜/hhszzzz) — **output CHỮ HÁN**, agent tự luận sang **tiếng Việt có dấu**.
+> **Naming runtime:** Claude `mcp__taibu__<tool>` · Gemini CLI `mcp_taibu_<tool>`.
+
+### ⚖️ Routing — KHI NÀO dùng taibu, khi nào dùng server cũ
+- **Bát Tự + Tử Vi của khách VN** (lá số chính, hiển thị web) → **VẪN dùng server `bazi`/`tuvi`** (đã Việt hóa Mệnh/Thân Chủ + Tuần/Triệt, nối trang web). taibu cũng có `bazi`/`ziwei` nhưng chữ Hán phái Đài/đại lục — chỉ dùng để **đối chiếu chéo**, KHÔNG thay.
+- **8 hệ MỚI mà server cũ KHÔNG có** → dùng `taibu` (xem dưới).
+- **Phong thủy không gian** (Bát Trạch, phi tinh nhà, loan đầu, âm trạch) → vẫn server `phongthuy`.
+
+### 🆕 Nhóm 5a — 8 hệ MỚI (chỉ taibu mới có)
+| Tool | Hệ | Input chính (required) | Dùng khi |
+| --- | --- | --- | --- |
+| `taibu__ziwei_flying_star` | Tử Vi **phi tinh** (tứ hóa phi bố, tự hóa, tam phương tứ chính) | `gender`, `birthYear/Month/Day/Hour`, `queries[]` (mỗi query cần cung cụ thể) | Luận sâu tứ hóa bay cung, sau khi đã có lá số Tử Vi |
+| `taibu__liuyao` | **Lục Hào** (gieo quẻ theo câu hỏi) | `question`, `yongShenTargets[]` (父母/兄弟/子孙/妻财/官鬼 — agent tự chọn theo chủ đề hỏi), `date` (ISO) | Khách hỏi 1 việc cụ thể (cầu tài, hợp tác, kiện tụng...) → gieo quẻ đoán cát hung + ứng kỳ |
+| `taibu__meihua` | **Mai Hoa Dịch Số** | (số/giờ/chữ — xem schema MCP) | Lập quẻ nhanh từ con số/thời điểm/chữ khách đưa |
+| `taibu__tarot` | **Tarot** (78 lá, 9 trải bài) | `spreadType` (single/three-card/love/celtic-cross/horseshoe/decision/mind-body-spirit/situation/yes-no), `question`, `allowReversed` | Khách thích phương Tây / hỏi tình cảm-sự nghiệp ngắn hạn |
+| `taibu__daliuren` | **Đại Lục Nhâm** (天地盘/四课/三传) | (giờ + câu hỏi — xem schema) | Đoán sự việc cấp cao, chuyên sâu (output rất dày) |
+| `taibu__xiaoliuren` | **Tiểu Lục Nhâm** (bấm độn nhanh) | (giờ — xem schema) | Đoán nhanh xuất hành, việc nhỏ tức thời |
+| `taibu__taiyi` | **Thái Ất** thần số (cửu tinh) | (thời/cục — xem schema) | Xem cục diện lớn, dự án/môi trường ngoại cảnh |
+| `taibu__astrology` | **Chiêm tinh Tây** (bản mệnh + lưu vận) | `birthYear/Month/Day/Hour`, `latitude`, `longitude`, `birthPlace`, `transitDateTime` | Khách muốn xem cung hoàng đạo / transit phương Tây |
+
+### Nhóm 5b — Tool taibu trùng hệ cũ (để đối chiếu, KHÔNG thay server VN)
+`taibu__bazi` (51 thần sát), `taibu__bazi_pillars_resolve`, `taibu__bazi_dayun` (+tiểu vận/thái tuế), `taibu__ziwei`, `taibu__ziwei_horoscope`, `taibu__almanac`, `taibu__qimen`.
+
+> ⚠️ taibu output chữ Hán + phái Đài/đại lục → chỉ dùng **cross-check** lá số chính (server `bazi`/`tuvi` Việt hóa mới là SSOT cho khách VN).
+
+---
+
 ## Quy Trình Chuẩn Khi Tư Vấn Lá Số
 1. Hỏi khách hàng: Ngày giờ sinh dương lịch hoặc âm lịch + Giới tính.
 2. Dùng tool `tuvi__getChart` hoặc `bazi__getBaziDetail` tùy hệ quy chiếu do khách mong muốn (Tử vi hay Tứ trụ).

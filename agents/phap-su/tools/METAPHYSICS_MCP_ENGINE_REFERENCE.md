@@ -9,12 +9,16 @@
 ## 0. Bản đồ nhanh (TL;DR)
 
 ```
-3 MCP server huyền học  (khai báo trong mỗi agent: <agent>/mcp.json)
-├── bazi       → node  bazi_wrapper.mjs   (App Phong Thủy/web-dashboard/scripts)  ← engine chính, 7 tool
+4 MCP server huyền học  (khai báo trong mỗi agent: <agent>/mcp.json)
+├── bazi       → node  bazi_wrapper.mjs   (App Phong Thủy/web-dashboard/scripts)  ← engine chính VN, 7 tool
 │                 └─ engines: tyme4ts + cantian-tymext + iztro  (node_modules)
+├── taibu  🆕  → node  vendor/taibu/packages/mcp/dist/index.js  (App Phong Thủy/web-dashboard) ← 15 tool, +8 hệ MỚI
+│                 └─ engines: tyme4ts + iztro + lunar-javascript + liuren-ts-lib + circular-natal-horoscope-js (MIT vendored)
 ├── phongthuy  → python phongthuy-mcp-server.py  (crypto-pattern-scanner/scripts) ← Bát Trạch, Phi Tinh, Kỳ Môn
 └── timemap    → uvx    timemap-mcp        (pip package ngoài, github.com/cnick26)  ← Tiết khí, Hexagram, Day Quality
 ```
+
+> **`taibu` (太卜, MIT, hhszzzz)** — vendored + cắt gọn (chỉ `packages/core`+`packages/mcp`, web/app AGPL đã gỡ). 8 hệ MỚI server cũ KHÔNG có: `ziwei_flying_star`, `liuyao`, `meihua`, `tarot`, `daliuren`, `xiaoliuren`, `taiyi`, `astrology`. 7 tool trùng (`bazi`/`bazi_dayun`/`ziwei`/`ziwei_horoscope`/`almanac`/`qimen`/`bazi_pillars_resolve`) = đối chiếu chéo, KHÔNG thay server `bazi` Việt hóa. Output chữ Hán. So sánh + verify lá số vàng: `crypto-pattern-scanner/memory/reports/2026-06-02-taibu-vs-current-metaphysics-engine-comparison.md`. Rollout 8 tool: `...2026-06-02-taibu-8-tools-rollout-plan.md`.
 
 ⚠️ **Naming theo runtime:** Claude = `mcp__bazi__<tool>` (double underscore) · Gemini CLI = `mcp_bazi_<tool>` (single).
 
@@ -61,16 +65,16 @@ Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
 
 ### 3.1 Server `bazi` — `bazi_wrapper.mjs` (7 tool)
 
-| Tool                       | Input                                                                        | Output (field chính)                                                                                       | Engine call                                       | Status                  |
-| -------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------------------- |
-| `bazi__getBaziDetail`      | `solarDatetime`\|`lunarDatetime`, `gender`(0/1), `eightCharProviderSect`(=2) | 4 trụ + Thập Thần + Nạp âm + Tinh vận + Thai nguyên/Mệnh cung/Thân cung + **`神煞`** + **`关系`** + **`五行统计`** | tyme4ts + `getShen` + `calculateRelation` + tally | ✅ + nâng cấp 2026-06-02 |
-| `bazi__getSolarTimes`      | `bazi` (vd `"乙卯 己丑 甲戌 己巳"`)                                                  | mảng ngày dương khả dĩ 1900-2050                                                                           | `EightChar.getSolarTimes`                         | ✅                       |
-| `bazi__getDaYun`           | `solarDatetime`, `gender`(0/1), `count`(=9), `targetYear`(optional)          | `八字` + `顺逆` + `起运` + `大运[]`(can chi + tuổi + năm + **`与命局关系`**) + **`流年`** (nếu có targetYear)            | `ChildLimit` + `DecadeFortune` + `appendRelation` + `SixtyCycleYear` | 🆕 2026-06-02 (+ vận hạn) |
-| `bazi__getChineseCalendar` | `solarDatetime`(optional)                                                    | Hoàng lịch: 干支, 28 tú, Bành Tổ, 5 thần phương vị, 宜/忌, 冲煞                                                  | tyme4ts LunarDay                                  | ✅                       |
-| `tuvi__getChart`           | `solarDate`(YYYY-MM-DD), `hour`(0=Tý), `gender`(0/1)                         | 12 cung + chính/phụ tinh + độ sáng + tứ hóa + **Tuần/Triệt + Mệnh/Thân Chủ chuẩn VN**                      | iztro + override VN                               | ✅                       |
-| `tuvi__getHoroscope` | + `targetDate`, `targetHour`(optional) | Đại hạn / Lưu niên / Lưu nguyệt / **Lưu nhật** / **Lưu thời** + lưu sao + mutagen | `computeHoroscope` (lib/engine/tuvi) | ✅ +daily/hourly 2026-06-02 |
-| `tuvi__getSanFangSiZheng` 🆕 | `branch` (địa chi Hán 子..亥) | Tam Phương Tứ Chính: Bản cung + Tam hợp (2) + Đối cung (xung chiếu) | `getSanFangSiZheng` (lib/engine/tuvi) | 🆕 2026-06-02 |
-| `charts__list`             | —                                                                            | List khách đã lưu (`web-dashboard/data/charts.json`)                                                       | fs đọc JSON local                                 | ✅                       |
+| Tool                         | Input                                                                        | Output (field chính)                                                                                       | Engine call                                                          | Status                     |
+| ---------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------- |
+| `bazi__getBaziDetail`        | `solarDatetime`\|`lunarDatetime`, `gender`(0/1), `eightCharProviderSect`(=2) | 4 trụ + Thập Thần + Nạp âm + Tinh vận + Thai nguyên/Mệnh cung/Thân cung + **`神煞`** + **`关系`** + **`五行统计`** | tyme4ts + `getShen` + `calculateRelation` + tally                    | ✅ + nâng cấp 2026-06-02    |
+| `bazi__getSolarTimes`        | `bazi` (vd `"乙卯 己丑 甲戌 己巳"`)                                                  | mảng ngày dương khả dĩ 1900-2050                                                                           | `EightChar.getSolarTimes`                                            | ✅                          |
+| `bazi__getDaYun`             | `solarDatetime`, `gender`(0/1), `count`(=9), `targetYear`(optional)          | `八字` + `顺逆` + `起运` + `大运[]`(can chi + tuổi + năm + **`与命局关系`**) + **`流年`** (nếu có targetYear)             | `ChildLimit` + `DecadeFortune` + `appendRelation` + `SixtyCycleYear` | 🆕 2026-06-02 (+ vận hạn)  |
+| `bazi__getChineseCalendar`   | `solarDatetime`(optional)                                                    | Hoàng lịch: 干支, 28 tú, Bành Tổ, 5 thần phương vị, 宜/忌, 冲煞                                                  | tyme4ts LunarDay                                                     | ✅                          |
+| `tuvi__getChart`             | `solarDate`(YYYY-MM-DD), `hour`(0=Tý), `gender`(0/1)                         | 12 cung + chính/phụ tinh + độ sáng + tứ hóa + **Tuần/Triệt + Mệnh/Thân Chủ chuẩn VN**                      | iztro + override VN                                                  | ✅                          |
+| `tuvi__getHoroscope`         | + `targetDate`, `targetHour`(optional)                                       | Đại hạn / Lưu niên / Lưu nguyệt / **Lưu nhật** / **Lưu thời** + lưu sao + mutagen                          | `computeHoroscope` (lib/engine/tuvi)                                 | ✅ +daily/hourly 2026-06-02 |
+| `tuvi__getSanFangSiZheng` 🆕 | `branch` (địa chi Hán 子..亥)                                                  | Tam Phương Tứ Chính: Bản cung + Tam hợp (2) + Đối cung (xung chiếu)                                        | `getSanFangSiZheng` (lib/engine/tuvi)                                | 🆕 2026-06-02              |
+| `charts__list`               | —                                                                            | List khách đã lưu (`web-dashboard/data/charts.json`)                                                       | fs đọc JSON local                                                    | ✅                          |
 
 **Chi tiết field MỚI (sau nâng cấp):**
 - **`关系`** = `calculateRelation(zhuArray)` → mỗi trụ trả `{天干:{冲,合}, 地支:{冲,害,破,暗合,合,刑,三合,三会,三刑,半合}}` + `拱`/`双合`/`双冲`/`伏吟`. **Đây là toàn bộ Hình-Xung-Phá-Hại-Hợp.**
@@ -141,10 +145,10 @@ Cả 2 nơi import từ đó — sửa 1 chỗ, cả 2 ăn theo:
 | | `SixtyCycle.getTen()` — tuần (旬) |
 
 ### iztro (khai thác tốt ~85%)
-| Đã dùng ✅                                                       | CHƯA dùng                                                      |
-| --------------------------------------------------------------- | -------------------------------------------------------------- |
-| `.horoscope()` decadal/yearly/monthly + **daily/hourly** (Lưu nhật/Lưu thời ✅ 2026-06-02, qua `lib/engine/tuvi.computeHoroscope`) | — |
-| palaces + stars + brightness + mutagen + **三方四正** (`getSanFangSiZheng` ✅ 2026-06-02) | — |
+| Đã dùng ✅                                                                                                                         | CHƯA dùng |
+| --------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `.horoscope()` decadal/yearly/monthly + **daily/hourly** (Lưu nhật/Lưu thời ✅ 2026-06-02, qua `lib/engine/tuvi.computeHoroscope`) | —         |
+| palaces + stars + brightness + mutagen + **三方四正** (`getSanFangSiZheng` ✅ 2026-06-02)                                              | —         |
 
 ---
 

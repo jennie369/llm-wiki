@@ -80,6 +80,27 @@ Full guide: `tools/bazi-mcp.md` (chia sẻ với PTĐV)
 
 ---
 
+## 2.5. Taibu MCP 🆕 (2026-06-02 — engine đa hệ huyền học, MIT)
+
+8 hệ MỚI mà server cũ KHÔNG có (output chữ Hán → tự luận tiếng Việt):
+```
+mcp_taibu_ziwei_flying_star  — Tử Vi phi tinh (tứ hóa bay cung, tự hóa, tam phương tứ chính)
+mcp_taibu_liuyao             — Lục Hào gieo quẻ (yongShenTargets agent tự chọn theo câu hỏi)
+mcp_taibu_meihua             — Mai Hoa Dịch Số (lập quẻ từ số/giờ/chữ)
+mcp_taibu_tarot              — Tarot 78 lá, 9 trải bài (single/three-card/love/celtic-cross...)
+mcp_taibu_daliuren           — Đại Lục Nhâm (天地盘/四课/三传, output dày, chuyên sâu)
+mcp_taibu_xiaoliuren         — Tiểu Lục Nhâm (bấm độn nhanh việc nhỏ)
+mcp_taibu_taiyi              — Thái Ất thần số (cửu tinh, cục diện lớn)
+mcp_taibu_astrology          — Chiêm tinh Tây (bản mệnh + lưu vận, cần lat/long/birthPlace)
+```
+Trùng hệ cũ (chỉ để đối chiếu, KHÔNG thay server VN): `mcp_taibu_bazi` (51 thần sát), `_bazi_dayun`, `_ziwei`, `_ziwei_horoscope`, `_almanac`, `_qimen`, `_bazi_pillars_resolve`.
+
+**Routing:** Bát Tự/Tử Vi khách VN → server `bazi`/`tuvi` (Việt hóa, SSOT). 8 hệ mới → `taibu`. Phong thủy không gian → `phongthuy`.
+**Source:** vendored `App Phong Thủy Đế Vương/web-dashboard/vendor/taibu` (MIT core+mcp, web AGPL đã gỡ). Full guide: `tools/bazi-mcp.md` §Server taibu.
+⚠️ Naming Gemini: `mcp_taibu_*` (single underscore).
+
+---
+
 ## 3. Deep Research MCP (CỐT LÕI Bước 2 HEARTBEAT)
 
 ```
