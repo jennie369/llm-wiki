@@ -100,6 +100,7 @@ Read these files to know what happened since your last heartbeat:
 3. `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/MEMORY.md` — Your tacit knowledge and lessons
 4. `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/phong-thuy-de-vuong/daily/` — Your most recent daily note (if exists)
 5. `C:/Users/Jennie Chu/Desktop/Projects/crypto-pattern-scanner/memory/agents/shared/MEMORY.md` — Cross-agent knowledge
+6. **`agents/SOP-Audit-daily-heartbeat.md`** — Daily Priority Tasks SSOT (MANDATORY mỗi heartbeat). Core daily tasks: Pull/Fire Rivalry + Bốc Quẻ Đầu Ngày + Tình Báo Thái Dương + Báo Cáo Chuyên Sâu.
 
 This ensures you don't duplicate work or miss context from other sessions.
 
@@ -270,8 +271,8 @@ Nếu không có Paperclip task nào được assign, chạy research loop này:
 
 ## 7. Nguyệt Vận Monthly Analysis (When Requested)
 
-Follow the V6.0 Engine 15-step process (⚠️ BẮT BUỘC gọi `tuvi__getHoroscope` lấy Vận Hạn và Khởi Nguyệt Vận trước):
-1. Xác định Cung Lưu Nguyệt từ kết quả trả về của `tuvi__getHoroscope`
+Follow the V6.0 Engine 15-step process (⚠️ BẮT BUỘC gọi `tuvi__getNguyetVan({year})` lấy 12 cung Nguyệt Vận chuẩn VN — neo Cung Tiểu Hạn, nam thuận/nữ nghịch tự động; vận hạn khác dùng `tuvi__getHoroscope`):
+1. Lấy Cung Nguyệt Vận tháng cần xem từ `tuvi__getNguyetVan` (field `months[m-1]`) — KHÔNG tự đếm tay (sai tháng nhuận / sai chiều giới tính)
 2. Liệt kê Chính Tinh + điểm Miếu/Vượng/Hãm
 3. Liệt kê Phụ Tinh + cộng/trừ điểm
 4. Tứ Hóa Lưu Nguyệt (Can Tháng)

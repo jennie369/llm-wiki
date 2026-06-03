@@ -70,8 +70,10 @@ LUÔN dùng MCP, KHÔNG tự tính âm dương lịch hay can chi nhẩm đoán.
 | `bazi__getDaYun` 🆕 | Đại Vận bát tự: thuận/nghịch + thời điểm khởi vận + chuỗi 10 năm/trụ |
 | `bazi__getChineseCalendar` | Hoàng lịch ngày tốt/xấu, việc kiêng kỵ, thần sát theo ngày |
 | `bazi__getSolarTimes` | Quy đổi bát tự ↔ dương lịch |
-| `tuvi__getChart` | Lập lá số 12 cung (chia sẻ với PTĐV) |
-| `tuvi__getHoroscope` | Vận hạn (Đại Vận, Lưu Niên, Tiểu Hạn, Nguyệt Vận) theo Target Date |
+| `tuvi__getChartVN` 🆕 | **MẶC ĐỊNH an sao/luận mệnh chuẩn VN** — độ sáng VN + đủ phụ tinh VN + Hỏa-Linh Altuvi (mới verify 1 lá). Input giống getChart. Chỉ natal. |
+| `tuvi__getChart` | Lá số 12 cung iztro (chính tinh + Tứ Hóa + An Mệnh đúng; độ sáng/phụ tinh theo Tàu) — đối chiếu / khi cần shape iztro |
+| `tuvi__getNguyetVan` 🆕 | Nguyệt Vận 12 tháng chuẩn VN (neo Cung Tiểu Hạn, T1=Tiểu Hạn+2 thuận, kèm sao natal mỗi cung tháng). Input: `solarDate`, `hour`, `gender`, `year` |
+| `tuvi__getHoroscope` | Vận hạn (Đại Vận, Lưu Niên, Tiểu Hạn, Lưu Nguyệt/Nhật/Thời) theo Target Date |
 | `charts__list` | Phân xuất danh sách lá số đã lưu trên DB |
 
 Full guide: `tools/bazi-mcp.md` (chia sẻ với PTĐV)

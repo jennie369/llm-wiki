@@ -12,10 +12,11 @@ Hệ thống Tử Vi NTP CŨ (`D:\Claude Projects\GEMINI...`) ĐÃ BỊ LOẠI B
 Tất cả các API Route phức tạp của Web Dashboard (`tuvi`, `bazi`, `horoscope`, `charts`) nay đã được **tích hợp thành MCP Tool** để Agent gọi mà không cần HTTP request.
 
 ### Nhóm 1: Tử Vi Hoàng Đạo (Engine: `api/tuvi`)
-*Đã bao gồm thuật toán tính Tuần Không, Triệt Lộ, isLeapMonth, Mệnh/Thân Chủ chuẩn Việt Nam.*
-- **Tool:** `tuvi__getChart`
-- **Input:** `solarDate` (YYYY-MM-DD), `hour` (ví dụ Tí là 0), `gender` (0 nữ, 1 nam).
-- **Phân tích:** Dành để luận sao giải họa tổng quát.
+- **Tool:** `tuvi__getChartVN` 🆕 ⭐ — **MẶC ĐỊNH cho an sao / luận mệnh chuẩn Việt Nam** (engine thuần Việt port lasotuvi).
+  - **Input:** `solarDate` (YYYY-MM-DD), `hour` (index iztro 0-12: Tý=0, Sửu=1... **Thìn=4**, Tý muộn=12), `gender` (0 nữ, 1 nam).
+  - **Hơn `tuvi__getChart` ở:** độ sáng (miếu/vượng/hãm) chuẩn VN + đủ phụ tinh VN (Đường Phù, Quốc Ấn, Thiên Y, Văn Tinh, Lưu Hà, Đẩu Quân...) + Hỏa-Linh theo **trường phái Altuvi** (⚠️ mới verify 1 lá số). Chỉ **natal** (không vận hạn).
+- **Tool:** `tuvi__getChart` — lá số iztro (chuẩn Tàu): **chính tinh + Tứ Hóa + An Mệnh (kể cả nhuận tháng) ĐÚNG**, nhưng độ sáng + phụ tinh theo Tàu. Dùng để **đối chiếu** hoặc khi cần shape iztro. Input giống getChartVN.
+- **Phân tích:** Lập lá số → luận sao giải họa. Ưu tiên `getChartVN` cho độ sáng/phụ tinh; đối chiếu `getChart` khi cần.
 
 ### Nhóm 2: Bát Tự & Hoàng Lịch (Engine: `api/bazi`)
 *Đã bao gồm thuật toán build 14 trường tàng can, Thần sát (`getShen`), Thập thần và lịch vạn sự.*
@@ -33,7 +34,10 @@ Tất cả các API Route phức tạp của Web Dashboard (`tuvi`, `bazi`, `hor
 ### Nhóm 3: Vận Hạn Horoscope (Engine: `api/horoscope`)
 - **Tool:** `tuvi__getHoroscope`
 - **Input:** Ngày sinh (solarDate, hour, gender) + `targetDate` (Ngày muốn xem)
-- **Output:** Tuổi xung, Cung lưu niên, Sao Lưu, Đại Vận, Tiểu Hạn, Nguyệt Vận. (Age, Decadal, Yearly, Monthly).
+- **Output:** Tuổi xung, Cung lưu niên, Sao Lưu, Đại Vận, Tiểu Hạn, Lưu Nguyệt/Nhật/Thời. (Age, Decadal, Yearly, Monthly).
+- **Tool:** `tuvi__getNguyetVan` 🆕 ⭐ — **Nguyệt Vận 12 tháng chuẩn VN** (Nguyệt Hạn). Neo **Cung Tiểu Hạn** (nam thuận / nữ nghịch xử lý tự động), Tháng 1 = Tiểu Hạn **+2 cung thuận**, rồi thuận 12 tháng. Kèm chính tinh (độ sáng VN) + phụ tinh natal mỗi cung tháng để luận.
+  - **Input:** `solarDate`, `hour` (index 0-12), `gender` (0 nữ/1 nam), `year` (năm dương muốn xem, vd 2026).
+  - **Công thức SSOT:** `FRAMEWORK_NGUYET_VAN_SSOT.md`. ⚠️ KHÔNG neo theo Chi Năm (bug cũ — nam nữ ra giống nhau = sai).
 
 ### Nhóm 4: Dữ liệu Lá Số (Engine: `api/charts`)
 - **Tool:** `charts__list`
@@ -72,8 +76,8 @@ Tất cả các API Route phức tạp của Web Dashboard (`tuvi`, `bazi`, `hor
 
 ## Quy Trình Chuẩn Khi Tư Vấn Lá Số
 1. Hỏi khách hàng: Ngày giờ sinh dương lịch hoặc âm lịch + Giới tính.
-2. Dùng tool `tuvi__getChart` hoặc `bazi__getBaziDetail` tùy hệ quy chiếu do khách mong muốn (Tử vi hay Tứ trụ).
-3. Luận Nguyệt Vận bằng cách gọi `tuvi__getHoroscope` với `targetDate` chỉ định để ra các Đại vận và Tiểu hạn.
+2. Dùng tool `tuvi__getChartVN` (mặc định an sao chuẩn VN) hoặc `bazi__getBaziDetail` tùy hệ quy chiếu do khách mong muốn (Tử vi hay Tứ trụ). Dùng `tuvi__getChart` (iztro) để đối chiếu khi cần.
+3. Luận Nguyệt Vận bằng `tuvi__getNguyetVan` (`year` = năm muốn xem) — ra thẳng 12 cung tháng + sao chuẩn VN. Đại vận / Lưu niên / Lưu nhật-thời dùng `tuvi__getHoroscope` với `targetDate`.
 4. KHÔNG TỰ TÍNH ÂM DƯƠNG LỊCH HOẶC SAO BẰNG TAY vì LLM hay sai lịch Nhuận. Luôn dùng kết quả từ Wrapper do thư viện `tyme4ts` phân giải.
 5. Bát Tự nâng cao: `bazi__getBaziDetail` nay trả thêm `关系` (Hình-Xung-Phá-Hại-Hợp) + `五行统计` (cân bằng ngũ hành / dụng thần); `bazi__getDaYun` cho Đại Vận bát tự (thuận/nghịch + chuỗi 10 năm).
 

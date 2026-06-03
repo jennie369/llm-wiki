@@ -68,11 +68,13 @@ Cùng người nhưng **NAM** (Tiểu Hạn 2026 = Thìn → T1 Ngọ):
 
 | Nơi | Chi tiết |
 |-----|----------|
-| Engine | `App Phong Thủy Đế Vương/web-dashboard/lib/engine/tuvi.js` → `computeHoroscope` trả `age` (Tiểu Hạn) |
-| UI | `…/components/tuvi/HoroscopeSection.js` → `calcNguyetVan(ageBranchCn, month)` = `(ageIdx + 2 + (month-1)) % 12` |
+| Engine Tiểu Hạn | `web-dashboard/lib/engine/tuvi.js` → `computeHoroscope` trả `age` (Tiểu Hạn, nam thuận/nữ nghịch) |
+| Engine Nguyệt Vận (SSOT công thức) | `web-dashboard/lib/engine/tuvi-vn/nguyetVan.js` → `nguyetVanBranch(ageBranchCn, month)` = `(ageIdx + 2 + (month-1)) % 12` + `computeNguyetVanYear(ageBranchCn)` (12 tháng) |
+| UI | `…/components/tuvi/HoroscopeSection.js` → import `nguyetVanBranch` từ engine (SSOT, không inline nữa) |
+| **MCP tool** 🆕 | `tuvi__getNguyetVan({solarDate, hour, gender, year})` (`bazi_wrapper.mjs`) → trả thẳng 12 cung tháng + chính/phụ tinh natal. Engine-verified golden 2026-06-03 (nữ 2026 子丑..亥 / nam 午未..巳). |
 | API | `…/app/api/horoscope/route.js` (POST, gọi `computeHoroscope`) |
 
-`calcNguyetVan` **chỉ nhận** `ageBranchCn` (= `data.age.earthlyBranch`) + `month` — **KHÔNG nhận `genderNum`** (giới tính đã nằm trong Tiểu Hạn).
+`nguyetVanBranch` **chỉ nhận** `ageBranchCn` (= `data.age.earthlyBranch`) + `month` — **KHÔNG nhận `genderNum`** (giới tính đã nằm trong Tiểu Hạn).
 
 ---
 
