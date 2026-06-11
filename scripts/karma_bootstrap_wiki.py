@@ -49,6 +49,9 @@ SUTTAS = [
     ('t1484_k20', 'Kinh Phạm Võng Bồ Tát Giới — Giới khinh thứ 20', '梵網經 不行放救戒 (T 1484)',
      'Giới không phóng sanh: "vì tâm từ bi mà làm việc phóng sanh... chúng sanh trong lục đạo đều là cha mẹ ta... cho nên phải thường làm việc phóng sanh và khuyên bảo người làm; thấy người đời sát sanh, nên tìm cách cứu hộ cho chúng được thoát khỏi nạn khổ" — nguồn kinh điển trực tiếp của pháp phóng sinh.',
      't1484-pham-vong-gioi-khinh-20-phong-sinh.md'),
+    ('vdpty_ch5', 'Vi Diệu Pháp Toát Yếu — Chương V (Kammacatukka)', 'Abhidhammattha Saṅgaha — Kammacatukka',
+     'Phân loại nghiệp theo bốn phương diện (Đại đức Nārada, bản dịch Phạm Kim Khánh): theo tác dụng (Tái Tạo / Trợ Duyên / Bổ Đồng / Tiêu Diệt), theo thứ tự trổ quả (Trọng / Cận Tử / Thường / Tích Tụ), theo thời gian (Hiện / Hậu / Vô Hạn Định / Vô Hiệu Lực), theo nơi chốn trổ quả — kèm chú giải 30-43.',
+     'vdpty-ch5-kammacatukka.md'),
 ]
 
 # (slug, name, pali, category, description, [(fruit_slug, edge_type, weight, sutta_ref)], [source_files], metadata)
@@ -239,20 +242,20 @@ FRUITS = [
 
 # (slug, name, pali, group_label, description)
 KARMA_CLASSES = [
-    ('sanh-nghiep', 'Sanh nghiệp', 'Janaka-kamma', 'theo chức năng', 'Nghiệp tạo ra tái sinh và danh-sắc lúc thụ thai — một trong bốn loại nghiệp phân theo chức năng.'),
-    ('tri-nghiep', 'Trì nghiệp', 'Upatthambhaka-kamma', 'theo chức năng', 'Nghiệp nâng đỡ, duy trì quả của sanh nghiệp đã trổ.'),
-    ('chuong-nghiep', 'Chướng nghiệp', 'Upapīḷaka-kamma', 'theo chức năng', 'Nghiệp áp chế, làm suy yếu quả của nghiệp khác.'),
-    ('doan-nghiep', 'Đoạn nghiệp', 'Upaghātaka-kamma', 'theo chức năng', 'Nghiệp cắt đứt quả của nghiệp khác và thay bằng quả của chính nó.'),
+    ('sanh-nghiep', 'Sanh nghiệp', 'Janaka-kamma', 'theo chức năng', 'Nghiệp tạo ra tái sinh và danh-sắc lúc thụ thai (VDP-TY ch.V gọi là Nghiệp Tái Tạo) — một trong bốn loại nghiệp phân theo chức năng.'),
+    ('tri-nghiep', 'Trì nghiệp', 'Upatthambhaka-kamma', 'theo chức năng', 'Nghiệp nâng đỡ, duy trì quả của sanh nghiệp đã trổ (VDP-TY: Nghiệp Trợ Duyên).'),
+    ('chuong-nghiep', 'Chướng nghiệp', 'Upapīḷaka-kamma', 'theo chức năng', 'Nghiệp áp chế, làm suy yếu quả của nghiệp khác (VDP-TY: Nghiệp Bổ Đồng).'),
+    ('doan-nghiep', 'Đoạn nghiệp', 'Upaghātaka-kamma', 'theo chức năng', 'Nghiệp cắt đứt quả của nghiệp khác và thay bằng quả của chính nó (VDP-TY: Nghiệp Tiêu Diệt).'),
     ('trong-nghiep', 'Trọng nghiệp', 'Garuka-kamma', 'theo thứ tự trổ quả', 'Nghiệp cực nặng (ngũ vô gián về phía ác, thiền chứng về phía thiện) — chắc chắn trổ quả trước mọi nghiệp khác, không gì ngăn được.'),
-    ('can-tu-nghiep', 'Cận tử nghiệp', 'Āsanna-kamma', 'theo thứ tự trổ quả', 'Nghiệp tạo hoặc nhớ lại lúc lâm chung — quyết định cảnh giới tái sinh khi không có trọng nghiệp.'),
-    ('tap-quan-nghiep', 'Tập quán nghiệp', 'Āciṇṇa-kamma', 'theo thứ tự trổ quả', 'Nghiệp làm thường xuyên thành thói quen — cơ sở kinh điển của tham số tần suất trong calculator.'),
-    ('khinh-tac-nghiep', 'Khinh tác nghiệp', 'Kaṭattā-kamma', 'theo thứ tự trổ quả', 'Nghiệp vụn vặt không chủ tâm mạnh — chỉ trổ khi ba loại trên vắng mặt.'),
-    ('hien-bao-nghiep', 'Hiện báo nghiệp', 'Diṭṭhadhammavedanīya-kamma', 'theo thời gian trổ quả', 'Nghiệp trổ quả ngay trong kiếp hiện tại.'),
-    ('sinh-bao-nghiep', 'Sinh báo nghiệp', 'Upapajjavedanīya-kamma', 'theo thời gian trổ quả', 'Nghiệp trổ quả ở kiếp kế tiếp.'),
-    ('hau-bao-nghiep', 'Hậu báo nghiệp', 'Aparāpariyavedanīya-kamma', 'theo thời gian trổ quả', 'Nghiệp trổ quả từ kiếp thứ hai trở đi, bất cứ khi nào hội đủ duyên.'),
-    ('vo-hieu-nghiep', 'Vô hiệu nghiệp', 'Ahosi-kamma', 'theo thời gian trổ quả', 'Nghiệp đã qua thời trổ quả, không còn cơ hội cho quả.'),
+    ('can-tu-nghiep', 'Cận tử nghiệp', 'Āsanna-kamma', 'theo thứ tự trổ quả', 'Nghiệp tạo hoặc nhớ lại lúc lâm chung — quyết định cảnh giới tái sinh khi không có trọng nghiệp (VDP-TY: Cận Tử Nghiệp).'),
+    ('tap-quan-nghiep', 'Tập quán nghiệp', 'Āciṇṇa-kamma', 'theo thứ tự trổ quả', 'Nghiệp làm thường xuyên thành thói quen — cơ sở kinh điển của tham số tần suất trong calculator (VDP-TY: Thường Nghiệp).'),
+    ('khinh-tac-nghiep', 'Khinh tác nghiệp', 'Kaṭattā-kamma', 'theo thứ tự trổ quả', 'Nghiệp vụn vặt không chủ tâm mạnh — chỉ trổ khi ba loại trên vắng mặt (VDP-TY: Nghiệp Tích Tụ).'),
+    ('hien-bao-nghiep', 'Hiện báo nghiệp', 'Diṭṭhadhammavedanīya-kamma', 'theo thời gian trổ quả', 'Nghiệp trổ quả ngay trong kiếp hiện tại (VDP-TY: Hiện Nghiệp).'),
+    ('sinh-bao-nghiep', 'Sinh báo nghiệp', 'Upapajjavedanīya-kamma', 'theo thời gian trổ quả', 'Nghiệp trổ quả ở kiếp kế tiếp (VDP-TY: Hậu Nghiệp).'),
+    ('hau-bao-nghiep', 'Hậu báo nghiệp', 'Aparāpariyavedanīya-kamma', 'theo thời gian trổ quả', 'Nghiệp trổ quả từ kiếp thứ hai trở đi, bất cứ khi nào hội đủ duyên (VDP-TY: Nghiệp Vô Hạn Định).'),
+    ('vo-hieu-nghiep', 'Vô hiệu nghiệp', 'Ahosi-kamma', 'theo thời gian trổ quả', 'Nghiệp đã qua thời trổ quả, không còn cơ hội cho quả (VDP-TY: Nghiệp Vô Hiệu Lực).'),
 ]
-KARMA_CLASS_SOURCE = 'Abhidhamma — Thắng Pháp Tập Yếu Luận (taxonomy mức phân loại, P0; chi tiết sâu ingest ở P3)'
+KARMA_CLASS_SOURCE = 'Vi Diệu Pháp Toát Yếu ch.V §7 (Kammacatukka) — Nārada / Phạm Kim Khánh dịch (đã ingest: vdpty-ch5-kammacatukka.md)'
 
 # Template C-R remedies — (slug, name, han, mechanism, target_state, strength_reduction,
 #   effort, dosage, timing_rule, counters[(node_slug_or_type, edge_type, strength)],
