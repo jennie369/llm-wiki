@@ -5,7 +5,10 @@
 > Plan kiến trúc: `crypto-pattern-scanner/docs/design_and_architecture/KARMA_ENGINE_ARCHITECTURE_PLAN.md`.
 > Nguyên tắc vàng: mọi kết quả truy ngược được về Kinh tham chiếu — KHÔNG tự suy diễn quy luật nhân-quả ngoài citations trả về.
 
-## Tools (P1+P2+P4 — sẽ mở rộng karma__simulate P5)
+## Tools (P1+P2+P4+P5 — đủ bộ)
+
+### `karma__simulate` (P5 — What-if)
+Mô phỏng remedy lên findings của `karma__chartRead`. Input `{findings, remedy_ids[], van_windows?}`. 4 cơ chế trung thực giáo lý: `tieu_nhan` KHÔNG đổi Prārabdha (chỉ phòng hộ tương lai) · `giam_tho` giảm ~1 band, floor 0.15 KHÔNG về 0 · `chan_duyen` đóng cửa sổ duyên = HOÃN không tiêu · `phong_ngua` chặn tích lũy. Output: comparison trước/sau + `leverage_ranking` + verdict mỗi quả (KHÔNG đổi/HOÃN/GIẢM — nói thẳng, không vẽ hy vọng giả). Workflow chuẩn: `tuvi__getChartVN` → (`tuvi__getHoroscope`) → `karma__chartRead` → `karma__simulate`.
 
 ### `karma__chartRead` (P4 — Track C)
 Suy ngược lá số Tử Vi (quả đã trổ) → nhân nghiệp + remedy. **Workflow bắt buộc**: `tuvi__getChartVN` trước → đưa NGUYÊN output JSON vào `{chart}`. Matcher luận theo CỤM (cách cục > trường cung > tổ hợp bản cung — sao đơn chỉ làm modifier giải/phá/tăng) trên `karma_chart_mappings` đã duyệt. Output: `karma_findings[]` (fruit + `combined_score` noisy-OR + patterns matched + `inferred_causes` truy về Kinh + remedies) + `citations_by_layer`. **Trình bày**: lớp mapping sao→nghiệp là DIỄN GIẢI HUYỀN HỌC (tin cậy thấp hơn Kinh điển 1 bậc) — chỉ nói "khuynh hướng", PHẢI tách lớp nguồn khi dẫn. `include_unapproved=true` CHỈ để test pipeline.
