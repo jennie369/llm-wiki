@@ -43,6 +43,12 @@ SUTTAS = [
     ('t600', 'Kinh Thập Thiện Nghiệp Đạo', '十善業道經 (Taishō T 600)',
      'Đức Phật thuyết tại cung điện Long vương Ta-kiệt-la: mười nghiệp thiện (thân 3, khẩu 4, ý 3) là mặt đất cho tất cả pháp lành của trời, người, Thanh văn, Độc giác, Bồ-tát; mỗi thiện nghiệp kèm danh sách lợi ích cụ thể.',
      't0600-kinh-thap-thien-nghiep-dao.md'),
+    ('an5_129', 'Kinh Ngũ Nghịch', 'Parikuppa Sutta (AN 5.129)',
+     'Đức Thế Tôn dạy: năm nghịch tội (đoạt mạng mẹ, đoạt mạng cha, đoạt mạng vị A-la-hán, với ác tâm làm Như Lai chảy máu, phá hòa hợp Tăng) đưa đến đọa xứ, đưa đến địa ngục, không có thể chữa trị.',
+     'an05-129-kinh-ngu-nghich.md'),
+    ('t1484_k20', 'Kinh Phạm Võng Bồ Tát Giới — Giới khinh thứ 20', '梵網經 不行放救戒 (T 1484)',
+     'Giới không phóng sanh: "vì tâm từ bi mà làm việc phóng sanh... chúng sanh trong lục đạo đều là cha mẹ ta... cho nên phải thường làm việc phóng sanh và khuyên bảo người làm; thấy người đời sát sanh, nên tìm cách cứu hộ cho chúng được thoát khỏi nạn khổ" — nguồn kinh điển trực tiếp của pháp phóng sinh.',
+     't1484-pham-vong-gioi-khinh-20-phong-sinh.md'),
 ]
 
 # (slug, name, pali, category, description, [(fruit_slug, edge_type, weight, sutta_ref)], [source_files], metadata)
@@ -173,22 +179,27 @@ ACTIONS = [
      'Đi đến bậc trí để hỏi: thế nào là thiện, thế nào là bất thiện, làm gì để được lợi ích an lạc lâu dài (MN 135).',
      [('day-du-tri-tue', 'dan_den', 1.0, 'MN 135'), ('sinh-thien-thu', 'dan_den', 1.0, 'MN 135')],
      ['mn135-tieu-kinh-nghiep-phan-biet.md'], None),
-    # ---------- Ngũ vô gián nghiệp (trọng nghiệp categorical — chưa có edge, chờ ingest AN 5.129 ở P1) ----------
-    ('giet-me', 'Giết mẹ', 'Mātughāta', 'than_ac',
-     'Ngũ vô gián nghiệp (ānantarika-kamma) — trọng nghiệp categorical, override mọi điểm số (§20.1). Nguồn chi tiết (AN 5.129) sẽ ingest ở P1 — chưa tạo edge nhân-quả.',
-     [], [], {'garuka': True}),
-    ('giet-cha', 'Giết cha', 'Pitughāta', 'than_ac',
-     'Ngũ vô gián nghiệp — trọng nghiệp categorical. Nguồn chi tiết (AN 5.129) sẽ ingest ở P1.',
-     [], [], {'garuka': True}),
-    ('giet-a-la-han', 'Giết bậc A-la-hán', 'Arahantaghāta', 'than_ac',
-     'Ngũ vô gián nghiệp — trọng nghiệp categorical. Nguồn chi tiết (AN 5.129) sẽ ingest ở P1.',
-     [], [], {'garuka': True}),
-    ('lam-phat-than-chay-mau', 'Làm thân Phật chảy máu', 'Lohituppāda', 'than_ac',
-     'Ngũ vô gián nghiệp — trọng nghiệp categorical. Nguồn chi tiết (AN 5.129) sẽ ingest ở P1.',
-     [], [], {'garuka': True}),
+    # ---------- Ngũ vô gián nghiệp (trọng nghiệp categorical — AN 5.129) ----------
+    ('giet-me', 'Giết mẹ (đoạt mạng mẹ)', 'Mātughāta', 'than_ac',
+     'Ngũ nghịch tội thứ nhất — "đưa đến đọa xứ, đưa đến địa ngục, không có thể chữa trị" (AN 5.129). Trọng nghiệp categorical, override mọi điểm số (§20.1).',
+     [('doa-coi-du', 'dan_den', 2.0, 'AN 5.129')],
+     ['an05-129-kinh-ngu-nghich.md'], {'garuka': True}),
+    ('giet-cha', 'Giết cha (đoạt mạng cha)', 'Pitughāta', 'than_ac',
+     'Ngũ nghịch tội — "đưa đến đọa xứ, đưa đến địa ngục, không có thể chữa trị" (AN 5.129). Trọng nghiệp categorical.',
+     [('doa-coi-du', 'dan_den', 2.0, 'AN 5.129')],
+     ['an05-129-kinh-ngu-nghich.md'], {'garuka': True}),
+    ('giet-a-la-han', 'Giết bậc A-la-hán (đoạt mạng vị A-la-hán)', 'Arahantaghāta', 'than_ac',
+     'Ngũ nghịch tội — "đưa đến đọa xứ, đưa đến địa ngục, không có thể chữa trị" (AN 5.129). Trọng nghiệp categorical.',
+     [('doa-coi-du', 'dan_den', 2.0, 'AN 5.129')],
+     ['an05-129-kinh-ngu-nghich.md'], {'garuka': True}),
+    ('lam-phat-than-chay-mau', 'Với ác tâm làm Như Lai chảy máu', 'Lohituppāda', 'than_ac',
+     'Ngũ nghịch tội — "đưa đến đọa xứ, đưa đến địa ngục, không có thể chữa trị" (AN 5.129). Trọng nghiệp categorical.',
+     [('doa-coi-du', 'dan_den', 2.0, 'AN 5.129')],
+     ['an05-129-kinh-ngu-nghich.md'], {'garuka': True}),
     ('pha-hoa-hop-tang', 'Phá hòa hợp Tăng', 'Saṅghabheda', 'than_ac',
-     'Ngũ vô gián nghiệp — trọng nghiệp categorical, nặng nhất trong năm tội. Nguồn chi tiết (AN 5.129) sẽ ingest ở P1.',
-     [], [], {'garuka': True}),
+     'Ngũ nghịch tội — "đưa đến đọa xứ, đưa đến địa ngục, không có thể chữa trị" (AN 5.129). Trọng nghiệp categorical, nặng nhất trong năm tội.',
+     [('doa-coi-du', 'dan_den', 2.0, 'AN 5.129')],
+     ['an05-129-kinh-ngu-nghich.md'], {'garuka': True}),
 ]
 
 # (slug, name, pali, description, [source_files])
@@ -272,6 +283,15 @@ REMEDIES = [
      None, 'kinh_dien', 'MN 135 (bố thí → tài sản lớn) + MN 142 (thang 14 bậc đối tượng, 7 loại cúng dường Tăng chúng, 4 sự thanh tịnh)',
      'Đối trị xan tham và quả nghèo khó; công đức tùy bậc đối tượng nhận và sự thanh tịnh của hai bên theo Kinh Phân biệt cúng dường.',
      ['mn135-tieu-kinh-nghiep-phan-biet.md', 'mn142-kinh-phan-biet-cung-duong.md']),
+    ('phong-sinh', 'Phóng sinh', '放生', 'giam_tho', 'prarabdha',
+     0.2, 2, {'cadence': 'hang_thang', 'min_duration_months': 6}, None,
+     [('action:sat-sinh', 'hoa_giai_boi', 0.8), ('fruit:doan-tho', 'giam_nhe', 0.5),
+      ('fruit:nhieu-benh', 'giam_nhe', 0.5)],
+     ['Phóng sinh sai cách (mua chim bị bắt lại, thả loài ngoại lai sai môi trường) nuôi cầu sát nghiệp thay vì cứu hộ — chọn loài bản địa, thả đúng môi trường, ưu tiên cứu vật sắp bị giết thật',
+      'Tinh thần kinh là CỨU HỘ khi thấy chúng sinh lâm nạn ("thấy người đời sát sanh, nên tìm cách cứu hộ") — không phải nghi thức mua-thả định kỳ'],
+     None, 'kinh_dien', 'Phạm Võng Bồ Tát Giới — giới khinh thứ 20 (T 1484): "phải thường làm việc phóng sanh và khuyên bảo người làm"; T 600 (ly sát sinh, mục 1: ban cho sự không sợ hãi — thí vô úy)',
+     'Cứu mạng chúng sinh sắp bị giết — đối trị trực tiếp sát nghiệp; Kinh Phạm Võng dạy chúng sanh trong lục đạo đều là cha mẹ ta nên phải thường hành phóng sinh và cứu hộ.',
+     ['t1484-pham-vong-gioi-khinh-20-phong-sinh.md', 't0600-kinh-thap-thien-nghiep-dao.md']),
 ]
 
 # ============================================================
