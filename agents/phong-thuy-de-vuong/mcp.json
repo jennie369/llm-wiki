@@ -27,6 +27,12 @@
         "C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương/web-dashboard/scripts/bazi_wrapper.mjs"
       ]
     },
+    "karma": {
+      "command": "node",
+      "args": [
+        "C:/Users/Jennie Chu/Desktop/Projects/App Phong Thủy Đế Vương/web-dashboard/scripts/karma_wrapper.mjs"
+      ]
+    },
     "taibu": {
       "command": "node",
       "args": [
