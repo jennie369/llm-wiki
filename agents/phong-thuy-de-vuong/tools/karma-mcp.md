@@ -5,7 +5,10 @@
 > Plan kiến trúc: `crypto-pattern-scanner/docs/design_and_architecture/KARMA_ENGINE_ARCHITECTURE_PLAN.md`.
 > Nguyên tắc vàng: mọi kết quả truy ngược được về Kinh tham chiếu — KHÔNG tự suy diễn quy luật nhân-quả ngoài citations trả về.
 
-## Tools (P1+P2 — sẽ mở rộng karma__chartRead P4, karma__simulate P5)
+## Tools (P1+P2+P4 — sẽ mở rộng karma__simulate P5)
+
+### `karma__chartRead` (P4 — Track C)
+Suy ngược lá số Tử Vi (quả đã trổ) → nhân nghiệp + remedy. **Workflow bắt buộc**: `tuvi__getChartVN` trước → đưa NGUYÊN output JSON vào `{chart}`. Matcher luận theo CỤM (cách cục > trường cung > tổ hợp bản cung — sao đơn chỉ làm modifier giải/phá/tăng) trên `karma_chart_mappings` đã duyệt. Output: `karma_findings[]` (fruit + `combined_score` noisy-OR + patterns matched + `inferred_causes` truy về Kinh + remedies) + `citations_by_layer`. **Trình bày**: lớp mapping sao→nghiệp là DIỄN GIẢI HUYỀN HỌC (tin cậy thấp hơn Kinh điển 1 bậc) — chỉ nói "khuynh hướng", PHẢI tách lớp nguồn khi dẫn. `include_unapproved=true` CHỈ để test pipeline.
 
 ### `karma__ask` (P2)
 Hỏi đáp RAG tiếng Việt trên nền Kinh tạng. Input `{question}`. Output `answer` (mọi nhận định kèm [nguồn]) + `citations[]` + `refused` (true = ngoài phạm vi, hệ TỪ CHỐI thay vì suy diễn — golden set eval đảm bảo hành vi này). Nhãn nguồn hợp lệ: MN 135 · MN 136 · MN 142 · AN 3.99 · AN 5.129 · AN 6.63 · T 600 · Phạm Võng giới 20.
