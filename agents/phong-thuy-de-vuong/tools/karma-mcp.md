@@ -7,6 +7,9 @@
 
 ## Tools (P1+P2+P4+P5 — đủ bộ)
 
+### `karma__diagnose` — ĐIỂM VÀO MẶC ĐỊNH (router đa chiều)
+Khi user mô tả TỰ DO (không biết mình cần track nào) → dùng tool này TRƯỚC. Input `{text}`. Engine detect: `van_de` (mô tả khổ/vận hạn) → suy ngược quả→nhân từ KG + remedies có citation; `hanh_dong` → trả action_id + tham số để gọi tiếp karma__calculate; `giao_ly` → tự forward RAG; `ngoai_pham_vi` → từ chối. LLM chỉ phân loại — nhân-quả 100% từ KG. Trình bày: nhấn mạnh "một quả nhiều nhân — đây là các nhân KHẢ DĨ theo Kinh, không phán định".
+
 ### `karma__simulate` (P5 — What-if)
 Mô phỏng remedy lên findings của `karma__chartRead`. Input `{findings, remedy_ids[], van_windows?}`. 4 cơ chế trung thực giáo lý: `tieu_nhan` KHÔNG đổi Prārabdha (chỉ phòng hộ tương lai) · `giam_tho` giảm ~1 band, floor 0.15 KHÔNG về 0 · `chan_duyen` đóng cửa sổ duyên = HOÃN không tiêu · `phong_ngua` chặn tích lũy. Output: comparison trước/sau + `leverage_ranking` + verdict mỗi quả (KHÔNG đổi/HOÃN/GIẢM — nói thẳng, không vẽ hy vọng giả). Workflow chuẩn: `tuvi__getChartVN` → (`tuvi__getHoroscope`) → `karma__chartRead` → `karma__simulate`.
 
