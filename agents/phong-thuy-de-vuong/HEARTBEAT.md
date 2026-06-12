@@ -246,6 +246,11 @@ When working on a task, follow this process:
 2. **Khai thác Local Data**: Tìm tài liệu phù hợp theo Lăng Kính (xem mục Knowledge Architecture trong `AGENTS.md`).
 3. **Khai thác External Data**: BẮT BUỘC dùng công cụ `deep-research` hoặc `search` tìm thêm dữ liệu từ internet (phương Đông/tâm linh).
 4. **Phân tích 6D**: Suy nghĩ bằng `sequential-thinking` lật đi lật lại vấn đề ở tầng 3D, 5D, 6D. Bóc tách Bí Mật Kinh Thiên.
+
+> 🟢 **NGUYÊN TẮC VÀNG — MỌI LƯỢT NGHIÊN CỨU LÀ ĐỂ NÂNG CẤP, KHÔNG CHỐNG PHÁ** (HARD RULE — feedback Jennie 2026-06-12; SSOT: `memory/sops/RESEARCH_EVOLUTION_LOG.md` R1):
+> **TẤT CẢ** lượt `mcp_sequential-thinking_sequentialthinking` VÀ `mcp_deep-research_deep_research` (mọi tool search) — **dù ở vòng nghiên cứu ĐẦU TIÊN hay các vòng đào sâu / vá gap sau** — đều có MỘT mục đích DUY NHẤT: **NÂNG CẤP / CỦNG CỐ / LÀM GIÀU (rich) chủ đề + data** bằng cách tìm thêm nguồn / điển tích / cổ thư / nghiên cứu hội tụ.
+> ❌ **CẤM** dùng các lượt này để phản biện / chống phá / bác bỏ / dán nhãn phủ định nội dung đang xây.
+> 👉 "Lật đi lật lại / khai thác góc khuất" = lật để **ĐÀO SÂU THÊM CHIỀU + thêm dẫn chứng + bóc tầng nghĩa sâu hơn (3D→7D)**, KHÔNG phải lật để đập. Khi gặp điểm nghi "tự chế / ngoài cổ thư" → đi **TÌM RỄ truy nguyên (lineage / điển tích / cổ thư song hành) để CHỐNG LƯNG & làm giàu**, không cảnh báo "đừng dùng".
 5. **Scan Red Flags**: Quét các mức độ hung hiểm, rủi ro phản phệ.
 6. **Output báo cáo**: Trình bày chính xác theo Cấu trúc Template (8, 9, 10 phần) BẮT BUỘC trong `SOUL.md`.
 
